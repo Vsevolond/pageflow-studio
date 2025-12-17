@@ -6,7 +6,32 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D35F7CD02EDF6E1B004F881B /* Neon in Frameworks */ = {isa = PBXBuildFile; productRef = D35F7CCF2EDF6E1B004F881B /* Neon */; };
+		D35F7CD32EDF7009004F881B /* Neon in Frameworks */ = {isa = PBXBuildFile; productRef = D35F7CD22EDF7009004F881B /* Neon */; };
+		D3649BAD2EE45C3000B86C94 /* TextFormationPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = D3649BAC2EE45C3000B86C94 /* TextFormationPlugin */; };
+		D395D09E2EEC5E6600CA43DA /* pageflow.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D395D09D2EEC5E6600CA43DA /* pageflow.dylib */; };
+		D395D09F2EEC5E7B00CA43DA /* pageflow.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = D395D09D2EEC5E6600CA43DA /* pageflow.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D3E173342EC4A60E0051B4A5 /* STTextView in Frameworks */ = {isa = PBXBuildFile; productRef = D3E173332EC4A60E0051B4A5 /* STTextView */; };
+		D3EC54D12EE46A8E002FDB17 /* STTextViewAnnotationsPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = D3EC54D02EE46A8E002FDB17 /* STTextViewAnnotationsPlugin */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D3EC55D02EE96D62002FDB17 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D395D09F2EEC5E7B00CA43DA /* pageflow.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		D395D09D2EEC5E6600CA43DA /* pageflow.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = pageflow.dylib; sourceTree = "<group>"; };
 		D3A7E3F92EC391D200BBFACE /* pageflow-studio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pageflow-studio.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -23,16 +48,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D35F7CD32EDF7009004F881B /* Neon in Frameworks */,
+				D3649BAD2EE45C3000B86C94 /* TextFormationPlugin in Frameworks */,
+				D3E173342EC4A60E0051B4A5 /* STTextView in Frameworks */,
+				D35F7CD02EDF6E1B004F881B /* Neon in Frameworks */,
+				D3EC54D12EE46A8E002FDB17 /* STTextViewAnnotationsPlugin in Frameworks */,
+				D395D09E2EEC5E6600CA43DA /* pageflow.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D3A78CD82EDE17EE00D20761 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D395D09D2EEC5E6600CA43DA /* pageflow.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D3A7E3F02EC391D100BBFACE = {
 			isa = PBXGroup;
 			children = (
 				D3A7E3FB2EC391D200BBFACE /* pageflow-studio */,
+				D3A78CD82EDE17EE00D20761 /* Frameworks */,
 				D3A7E3FA2EC391D200BBFACE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,6 +95,7 @@
 				D3A7E3F52EC391D200BBFACE /* Sources */,
 				D3A7E3F62EC391D200BBFACE /* Frameworks */,
 				D3A7E3F72EC391D200BBFACE /* Resources */,
+				D3EC55D02EE96D62002FDB17 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -65,6 +106,11 @@
 			);
 			name = "pageflow-studio";
 			packageProductDependencies = (
+				D3E173332EC4A60E0051B4A5 /* STTextView */,
+				D35F7CCF2EDF6E1B004F881B /* Neon */,
+				D35F7CD22EDF7009004F881B /* Neon */,
+				D3649BAC2EE45C3000B86C94 /* TextFormationPlugin */,
+				D3EC54D02EE46A8E002FDB17 /* STTextViewAnnotationsPlugin */,
 			);
 			productName = "pageflow-studio";
 			productReference = D3A7E3F92EC391D200BBFACE /* pageflow-studio.app */;
@@ -78,7 +124,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					D3A7E3F82EC391D200BBFACE = {
 						CreatedOnToolsVersion = 26.0.1;
@@ -94,6 +140,12 @@
 			);
 			mainGroup = D3A7E3F02EC391D100BBFACE;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D3E173322EC4A60E0051B4A5 /* XCRemoteSwiftPackageReference "STTextView" */,
+				D35F7CD12EDF7009004F881B /* XCRemoteSwiftPackageReference "Neon" */,
+				D3649BAB2EE45C3000B86C94 /* XCRemoteSwiftPackageReference "STTextView-Plugin-TextFormation" */,
+				D3EC54CF2EE46A8E002FDB17 /* XCRemoteSwiftPackageReference "STTextView-Plugin-Annotations" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D3A7E3FA2EC391D200BBFACE /* Products */;
 			projectDirPath = "";
@@ -159,6 +211,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = X565S8X224;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -184,7 +237,9 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OBJC_BRIDGING_HEADER = "pageflow-studio/tree-sitter/pageflow.dylib";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -223,6 +278,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X565S8X224;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -241,7 +297,9 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "pageflow-studio/tree-sitter/pageflow.dylib";
 			};
 			name = Release;
 		};
@@ -253,18 +311,27 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = X565S8X224;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "PageFlow Studio";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"$(PROJECT_DIR)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.vsevolond.pageflow-studio";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -272,6 +339,8 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "pageflow-studio/tree-sitter/pageflow-bridge.h";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -285,18 +354,27 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = X565S8X224;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "PageFlow Studio";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"$(PROJECT_DIR)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.vsevolond.pageflow-studio";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -304,6 +382,8 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "pageflow-studio/tree-sitter/pageflow-bridge.h";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -331,6 +411,68 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D35F7CD12EDF7009004F881B /* XCRemoteSwiftPackageReference "Neon" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ChimeHQ/Neon.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D3649BAB2EE45C3000B86C94 /* XCRemoteSwiftPackageReference "STTextView-Plugin-TextFormation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/STTextView-Plugin-TextFormation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.2;
+			};
+		};
+		D3E173322EC4A60E0051B4A5 /* XCRemoteSwiftPackageReference "STTextView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/STTextView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.8;
+			};
+		};
+		D3EC54CF2EE46A8E002FDB17 /* XCRemoteSwiftPackageReference "STTextView-Plugin-Annotations" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/STTextView-Plugin-Annotations.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D35F7CCF2EDF6E1B004F881B /* Neon */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Neon;
+		};
+		D35F7CD22EDF7009004F881B /* Neon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D35F7CD12EDF7009004F881B /* XCRemoteSwiftPackageReference "Neon" */;
+			productName = Neon;
+		};
+		D3649BAC2EE45C3000B86C94 /* TextFormationPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3649BAB2EE45C3000B86C94 /* XCRemoteSwiftPackageReference "STTextView-Plugin-TextFormation" */;
+			productName = TextFormationPlugin;
+		};
+		D3E173332EC4A60E0051B4A5 /* STTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3E173322EC4A60E0051B4A5 /* XCRemoteSwiftPackageReference "STTextView" */;
+			productName = STTextView;
+		};
+		D3EC54D02EE46A8E002FDB17 /* STTextViewAnnotationsPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3EC54CF2EE46A8E002FDB17 /* XCRemoteSwiftPackageReference "STTextView-Plugin-Annotations" */;
+			productName = STTextViewAnnotationsPlugin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D3A7E3F12EC391D100BBFACE /* Project object */;
 }

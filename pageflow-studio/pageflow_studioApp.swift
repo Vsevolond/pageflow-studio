@@ -11,7 +11,9 @@ import SwiftUI
 struct pageflow_studioApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if let url = Bundle.main.resourceURL {
+                ContentView(queriesURL: url)
+            }
         }
     }
 }
