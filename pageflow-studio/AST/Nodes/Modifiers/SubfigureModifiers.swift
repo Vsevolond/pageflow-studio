@@ -21,6 +21,15 @@ enum SubfigureModifiers: ASTNode {
             subfigureModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .subfigure(let subfigureModifier):
+            try subfigureModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -31,4 +40,10 @@ struct SubfigureModifier: ASTNode {
     
     let value: Bool
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        /// not required
+    }
 }

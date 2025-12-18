@@ -25,6 +25,18 @@ enum FigureModifiers: ASTNode {
             captionModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .enumerated(let enumeratedModifier):
+            try enumeratedModifier.validate(with: storage)
+            
+        case .caption(let captionModifier):
+            try captionModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -35,6 +47,12 @@ struct EnumeratedModifier: ASTNode {
     
     let value: Bool
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        /// not required
+    }
 }
 
 struct CaptionModifier: ASTNode {
@@ -43,4 +61,10 @@ struct CaptionModifier: ASTNode {
     
     let value: [TextFragment]
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }

@@ -27,4 +27,16 @@ enum DefaultNewPageContent: ASTNode {
             baseContent.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .section(let sectionBlock):
+            try sectionBlock.validate(with: storage)
+            
+        case .content(let baseContent):
+            try baseContent.validate(with: storage)
+        }
+    }
 }

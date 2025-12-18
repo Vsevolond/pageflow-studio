@@ -25,4 +25,37 @@ enum Factor: ASTNode {
             primaryFactor.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension Factor: Measurable {
+    
+    // MARK: - Internal Properties
+    
+    var isMeasured: Bool {
+        switch self {
+        case .unary(let unaryFactor):
+            unaryFactor.isMeasured
+            
+        case .primary(let primaryFactor):
+            primaryFactor.isMeasured
+        }
+    }
+    
+    var points: CGFloat {
+        switch self {
+        case .unary(let unaryFactor):
+            unaryFactor.points
+            
+        case .primary(let primaryFactor):
+            primaryFactor.points
+        }
+    }
 }

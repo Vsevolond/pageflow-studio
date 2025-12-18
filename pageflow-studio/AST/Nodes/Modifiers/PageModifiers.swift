@@ -25,6 +25,18 @@ enum PageModifiers: ASTNode {
             footerModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .header(let headerModifier):
+            try headerModifier.validate(with: storage)
+            
+        case .footer(let footerModifier):
+            try footerModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -35,6 +47,12 @@ struct HeaderModifier: ASTNode {
     
     let value: [TextFragment]
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }
 
 struct FooterModifier: ASTNode {
@@ -43,4 +61,10 @@ struct FooterModifier: ASTNode {
     
     let value: [TextFragment]
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }

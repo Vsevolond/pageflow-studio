@@ -13,4 +13,10 @@ struct Document: ASTNode {
     
     let elements: [Element]
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try elements.validate(with: storage)
+    }
 }

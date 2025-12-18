@@ -25,6 +25,18 @@ enum TextLayoutModifiers: ASTNode {
             lineSpacingModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .textAlignment(let textAlignmentModifier):
+            try textAlignmentModifier.validate(with: storage)
+            
+        case .lineSpacing(let lineSpacingModifier):
+            try lineSpacingModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -35,6 +47,12 @@ struct TextAlignmentModifier: ASTNode {
     
     let value: HorizontalAlignmentType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }
 
 struct LineSpacingModifier: ASTNode {
@@ -43,4 +61,14 @@ struct LineSpacingModifier: ASTNode {
     
     let value: Expression
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+        
+        guard value.isMeasured else {
+            throw .invalid(expression: value)
+        }
+    }
 }

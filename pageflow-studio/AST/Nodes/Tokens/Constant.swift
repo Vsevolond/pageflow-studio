@@ -20,4 +20,26 @@ struct Constant: ASTNode {
     
     let value: Value
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension Constant: Measurable {
+    
+    // MARK: - Internal Properties
+    
+    var isMeasured: Bool { true }
+    
+    var points: CGFloat {
+        switch value {
+        case .width: 15120 / 25.4
+        case .height: 21384 / 25.4
+        }
+    }
 }

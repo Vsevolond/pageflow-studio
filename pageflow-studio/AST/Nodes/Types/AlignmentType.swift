@@ -20,4 +20,10 @@ struct AlignmentType: ASTNode {
     
     let value: Value
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        /// not required
+    }
 }

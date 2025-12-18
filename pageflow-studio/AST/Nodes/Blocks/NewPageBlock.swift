@@ -14,6 +14,13 @@ struct NewPageBlock<Content: ASTNode>: ASTNode {
     let content: [Content]
     let modifiers: [DefaultNewPageBlock.Modifier]
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try content.validate(with: storage)
+        try modifiers.validate(with: storage)
+    }
 }
 
 // MARK: - Extensions
@@ -38,6 +45,18 @@ extension NewPageBlock {
                 
             case .inset(let insetModifiers):
                 insetModifiers.range
+            }
+        }
+        
+        // MARK: - Internal Methods
+        
+        func validate(with storage: ASTStorage) throws(ASTError) {
+            switch self {
+            case .page(let pageModifiers):
+                try pageModifiers.validate(with: storage)
+                
+            case .inset(let insetModifiers):
+                try insetModifiers.validate(with: storage)
             }
         }
     }

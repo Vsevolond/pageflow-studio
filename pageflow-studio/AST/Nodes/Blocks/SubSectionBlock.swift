@@ -14,6 +14,13 @@ struct SubSectionBlock: ASTNode {
     let title: [TextFragment]
     let content: [Content]
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try title.validate(with: storage)
+        try content.validate(with: storage)
+    }
 }
 
 // MARK: - Extensions
@@ -38,6 +45,18 @@ extension SubSectionBlock {
                 
             case .content(let baseContent):
                 baseContent.range
+            }
+        }
+        
+        // MARK: - Internal Methods
+        
+        func validate(with storage: ASTStorage) throws(ASTError) {
+            switch self {
+            case .newPage(let subSectionNewPageBlock):
+                try subSectionNewPageBlock.validate(with: storage)
+                
+            case .content(let baseContent):
+                try baseContent.validate(with: storage)
             }
         }
     }

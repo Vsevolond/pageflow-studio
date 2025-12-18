@@ -53,4 +53,37 @@ enum BaseContent: ASTNode {
             listingElement.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .vstack(let vStackBlock):
+            try vStackBlock.validate(with: storage)
+            
+        case .hstack(let hStackBlock):
+            try hStackBlock.validate(with: storage)
+            
+        case .zstack(let zStackBlock):
+            try zStackBlock.validate(with: storage)
+            
+        case .text(let textBlock):
+            try textBlock.validate(with: storage)
+            
+        case .math(let mathBlock):
+            try mathBlock.validate(with: storage)
+            
+        case .image(let imageElement):
+            try imageElement.validate(with: storage)
+            
+        case .spacer(let spacerElement):
+            try spacerElement.validate(with: storage)
+            
+        case .divider(let dividerElement):
+            try dividerElement.validate(with: storage)
+            
+        case .listing(let listingElement):
+            try listingElement.validate(with: storage)
+        }
+    }
 }

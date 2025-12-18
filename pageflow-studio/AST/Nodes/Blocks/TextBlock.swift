@@ -14,6 +14,13 @@ struct TextBlock: ASTNode {
     let fragments: [TextFragment]
     let modifiers: [Modifier]
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try fragments.validate(with: storage)
+        try modifiers.validate(with: storage)
+    }
 }
 
 // MARK: - Extensions
@@ -62,6 +69,36 @@ extension TextBlock {
                 
             case .background(let backgroundModifiers):
                 backgroundModifiers.range
+            }
+        }
+        
+        // MARK: - Internal Methods
+        
+        func validate(with storage: ASTStorage) throws(ASTError) {
+            switch self {
+            case .textLayout(let textLayoutModifiers):
+                try textLayoutModifiers.validate(with: storage)
+                
+            case .textEditing(let textEditingModifiers):
+                try textEditingModifiers.validate(with: storage)
+                
+            case .font(let fontModifiers):
+                try fontModifiers.validate(with: storage)
+                
+            case .frame(let frameModifiers):
+                try frameModifiers.validate(with: storage)
+                
+            case .layout(let layoutModifiers):
+                try layoutModifiers.validate(with: storage)
+                
+            case .alignment(let alignmentModifiers):
+                try alignmentModifiers.validate(with: storage)
+                
+            case .foreground(let foregroundModifiers):
+                try foregroundModifiers.validate(with: storage)
+                
+            case .background(let backgroundModifiers):
+                try backgroundModifiers.validate(with: storage)
             }
         }
     }

@@ -33,6 +33,24 @@ enum CodeModifiers: ASTNode {
             codeNumbersModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .language(let codeLanguageModifier):
+            try codeLanguageModifier.validate(with: storage)
+            
+        case .style(let codeStyleModifier):
+            try codeStyleModifier.validate(with: storage)
+            
+        case .frame(let codeFrameModifier):
+            try codeFrameModifier.validate(with: storage)
+            
+        case .numbers(let codeNumbersModifier):
+            try codeNumbersModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -43,6 +61,12 @@ struct CodeLanguageModifier: ASTNode {
     
     let value: CodeLanguageType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }
 
 struct CodeStyleModifier: ASTNode {
@@ -51,6 +75,12 @@ struct CodeStyleModifier: ASTNode {
     
     let value: CodeStyleType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }
 
 struct CodeFrameModifier: ASTNode {
@@ -59,6 +89,12 @@ struct CodeFrameModifier: ASTNode {
     
     let value: CodeFrameType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }
 
 struct CodeNumbersModifier: ASTNode {
@@ -67,4 +103,10 @@ struct CodeNumbersModifier: ASTNode {
     
     let value: Bool
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        /// not required
+    }
 }

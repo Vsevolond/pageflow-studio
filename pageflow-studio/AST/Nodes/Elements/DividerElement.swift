@@ -14,6 +14,13 @@ struct DividerElement: ASTNode {
     let thickness: Expression
     let modifiers: [Modifier]
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try thickness.validate(with: storage)
+        try modifiers.validate(with: storage)
+    }
 }
 
 // MARK: - Extensions
@@ -46,6 +53,24 @@ extension DividerElement {
                 
             case .foreground(let foregroundModifiers):
                 foregroundModifiers.range
+            }
+        }
+        
+        // MARK: - Internal Methods
+        
+        func validate(with storage: ASTStorage) throws(ASTError) {
+            switch self {
+            case .frame(let frameModifiers):
+                try frameModifiers.validate(with: storage)
+                
+            case .layout(let layoutModifiers):
+                try layoutModifiers.validate(with: storage)
+                
+            case .alignment(let alignmentModifiers):
+                try alignmentModifiers.validate(with: storage)
+                
+            case .foreground(let foregroundModifiers):
+                try foregroundModifiers.validate(with: storage)
             }
         }
     }

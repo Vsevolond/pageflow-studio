@@ -14,4 +14,28 @@ struct UnaryFactor: ASTNode {
     let operation: AddOperation
     let value: PrimaryFactor
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension UnaryFactor: Measurable {
+    
+    // MARK: - Internal Properties
+    
+    var isMeasured: Bool {
+        value.isMeasured
+    }
+    
+    var points: CGFloat {
+        switch operation.value {
+        case .addition: value.points
+        case .substraction: -value.points
+        }
+    }
 }

@@ -25,6 +25,18 @@ enum TextEditingModifiers: ASTNode {
             strikethroughModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .underline(let underlineModifier):
+            try underlineModifier.validate(with: storage)
+            
+        case .strikethrough(let strikethroughModifier):
+            try strikethroughModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -36,6 +48,13 @@ struct UnderlineModifier: ASTNode {
     let line: LinePatternType
     let color: ColorType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try line.validate(with: storage)
+        try color.validate(with: storage)
+    }
 }
 
 struct StrikethroughModifier: ASTNode {
@@ -45,4 +64,11 @@ struct StrikethroughModifier: ASTNode {
     let line: LinePatternType
     let color: ColorType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try line.validate(with: storage)
+        try color.validate(with: storage)
+    }
 }

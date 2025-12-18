@@ -29,7 +29,7 @@ extension ASTParser {
             throw .unknown(range: child.range)
         }
         
-        let name = try fileName(from: child)
+        let name = try fileName(from: child, type: .image)
         
         var modifiers: [ImageElement.Modifier] = []
         

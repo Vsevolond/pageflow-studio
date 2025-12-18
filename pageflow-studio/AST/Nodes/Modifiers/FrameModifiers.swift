@@ -25,6 +25,18 @@ enum FrameModifiers: ASTNode {
             heightModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .width(let widthModifier):
+            try widthModifier.validate(with: storage)
+            
+        case .height(let heightModifier):
+            try heightModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -35,6 +47,16 @@ struct WidthModifier: ASTNode {
     
     let value: Expression
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+        
+        guard value.isMeasured else {
+            throw .invalid(expression: value)
+        }
+    }
 }
 
 struct HeightModifier: ASTNode {
@@ -43,4 +65,14 @@ struct HeightModifier: ASTNode {
     
     let value: Expression
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+        
+        guard value.isMeasured else {
+            throw .invalid(expression: value)
+        }
+    }
 }

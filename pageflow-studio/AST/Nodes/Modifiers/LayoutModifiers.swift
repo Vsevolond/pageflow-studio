@@ -25,6 +25,18 @@ enum LayoutModifiers: ASTNode {
             offsetModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .padding(let paddingModifier):
+            try paddingModifier.validate(with: storage)
+            
+        case .offset(let offsetModifier):
+            try offsetModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -36,6 +48,17 @@ struct PaddingModifier: ASTNode {
     let edge: EdgeType
     let value: Expression
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try edge.validate(with: storage)
+        try value.validate(with: storage)
+        
+        guard value.isMeasured else {
+            throw .invalid(expression: value)
+        }
+    }
 }
 
 struct OffsetModifier: ASTNode {
@@ -45,4 +68,15 @@ struct OffsetModifier: ASTNode {
     let axis: AxisType
     let value: Expression
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try axis.validate(with: storage)
+        try value.validate(with: storage)
+        
+        guard value.isMeasured else {
+            throw .invalid(expression: value)
+        }
+    }
 }

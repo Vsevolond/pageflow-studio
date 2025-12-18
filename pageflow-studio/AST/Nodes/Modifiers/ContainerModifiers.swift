@@ -21,6 +21,15 @@ enum ContainerModifiers: ASTNode {
             spacingModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .spacing(let spacingModifier):
+            try spacingModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -31,4 +40,14 @@ struct SpacingModifier: ASTNode {
     
     let value: Expression
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+        
+        guard value.isMeasured else {
+            throw .invalid(expression: value)
+        }
+    }
 }

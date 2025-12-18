@@ -33,4 +33,53 @@ struct Number: ASTNode {
         self.unit = unit
         self.range = range
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension Number: Measurable {
+    
+    // MARK: - Internal Properties
+    
+    var isMeasured: Bool {
+        unit != nil
+    }
+    
+    var points: CGFloat {
+        guard let unit else { return .zero }
+        
+        switch unit.value {
+        case .pt:
+            return value.realValue
+            
+        case .cm:
+            return value.realValue * 720 / 25.4
+            
+        case .mm:
+            return value.realValue * 72 / 25.4
+            
+        case .in:
+            return value.realValue * 72
+        }
+    }
+}
+
+// MARK: - Private Extensions
+
+private extension Number.Value {
+    
+    // MARK: - Internal Properties
+    
+    var realValue: CGFloat {
+        switch self {
+        case .integer(let int): CGFloat(int)
+        case .decimal(let double): CGFloat(double)
+        }
+    }
 }

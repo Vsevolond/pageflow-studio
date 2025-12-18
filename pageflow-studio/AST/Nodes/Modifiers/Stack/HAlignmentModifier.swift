@@ -13,4 +13,10 @@ struct HAlignmentModifier: ASTNode {
     
     let value: VerticalAlignmentType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }

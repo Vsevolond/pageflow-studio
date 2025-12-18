@@ -25,6 +25,18 @@ enum FontModifiers: ASTNode {
             fontStyleModifier.range
         }
     }
+    
+    // MARK: - Internal Properties
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .fontSize(let fontSizeModifier):
+            try fontSizeModifier.validate(with: storage)
+            
+        case .fontStyle(let fontStyleModifier):
+            try fontStyleModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -35,6 +47,12 @@ struct FontSizeModifier: ASTNode {
     
     let value: FontSizeType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }
 
 struct FontStyleModifier: ASTNode {
@@ -43,4 +61,10 @@ struct FontStyleModifier: ASTNode {
     
     let value: FontStyleType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }

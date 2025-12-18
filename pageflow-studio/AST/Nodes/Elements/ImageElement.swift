@@ -14,6 +14,13 @@ struct ImageElement: ASTNode {
     let name: FileName
     let modifiers: [Modifier]
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try name.validate(with: storage)
+        try modifiers.validate(with: storage)
+    }
 }
 
 // MARK: - Extensions
@@ -50,6 +57,27 @@ extension ImageElement {
                 
             case .subfigure(let subfigureModifiers):
                 subfigureModifiers.range
+            }
+        }
+        
+        // MARK: - Internal Methods
+        
+        func validate(with storage: ASTStorage) throws(ASTError) {
+            switch self {
+            case .frame(let frameModifiers):
+                try frameModifiers.validate(with: storage)
+                
+            case .layout(let layoutModifiers):
+                try layoutModifiers.validate(with: storage)
+                
+            case .alignment(let alignmentModifiers):
+                try alignmentModifiers.validate(with: storage)
+                
+            case .figure(let figureModifiers):
+                try figureModifiers.validate(with: storage)
+                
+            case .subfigure(let subfigureModifiers):
+                try subfigureModifiers.validate(with: storage)
             }
         }
     }

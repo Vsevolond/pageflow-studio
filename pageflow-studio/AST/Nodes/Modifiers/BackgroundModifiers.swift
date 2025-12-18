@@ -21,6 +21,15 @@ enum BackgroundModifiers: ASTNode {
             backgroundModifier.range
         }
     }
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        switch self {
+        case .background(let backgroundModifier):
+            try backgroundModifier.validate(with: storage)
+        }
+    }
 }
 
 // MARK: - Modifiers
@@ -31,4 +40,10 @@ struct BackgroundModifier: ASTNode {
     
     let value: ColorType
     let range: NSRange
+    
+    // MARK: - Internal Methods
+    
+    func validate(with storage: ASTStorage) throws(ASTError) {
+        try value.validate(with: storage)
+    }
 }
