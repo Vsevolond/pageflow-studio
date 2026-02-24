@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D333F2D42F4E13B600D93B98 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D333F2D32F4E13B600D93B98 /* PageflowSourceEditor */; };
+		D334BE312F438ABD00A677C3 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D334BE302F438ABD00A677C3 /* PageflowSourceEditor */; };
+		D368C8F72F41E5F1001E75BA /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D368C8F62F41E5F1001E75BA /* PageflowSourceEditor */; };
+		D3DEA50C2F4C85D600D0ED10 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D3DEA50B2F4C85D600D0ED10 /* PageflowSourceEditor */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D3A7E3F92EC391D200BBFACE /* pageflow-studio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pageflow-studio.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +30,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D368C8F72F41E5F1001E75BA /* PageflowSourceEditor in Frameworks */,
+				D333F2D42F4E13B600D93B98 /* PageflowSourceEditor in Frameworks */,
+				D334BE312F438ABD00A677C3 /* PageflowSourceEditor in Frameworks */,
+				D3DEA50C2F4C85D600D0ED10 /* PageflowSourceEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +76,10 @@
 			);
 			name = "pageflow-studio";
 			packageProductDependencies = (
+				D368C8F62F41E5F1001E75BA /* PageflowSourceEditor */,
+				D334BE302F438ABD00A677C3 /* PageflowSourceEditor */,
+				D3DEA50B2F4C85D600D0ED10 /* PageflowSourceEditor */,
+				D333F2D32F4E13B600D93B98 /* PageflowSourceEditor */,
 			);
 			productName = "pageflow-studio";
 			productReference = D3A7E3F92EC391D200BBFACE /* pageflow-studio.app */;
@@ -78,7 +93,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					D3A7E3F82EC391D200BBFACE = {
 						CreatedOnToolsVersion = 26.0.1;
@@ -94,6 +109,9 @@
 			);
 			mainGroup = D3A7E3F02EC391D100BBFACE;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D333F2D22F4E13B600D93B98 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D3A7E3FA2EC391D200BBFACE /* Products */;
 			projectDirPath = "";
@@ -159,6 +177,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = X565S8X224;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -184,6 +203,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -223,6 +243,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X565S8X224;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -241,6 +262,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -253,6 +275,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = X565S8X224;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -285,6 +308,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = X565S8X224;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -331,6 +355,37 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D333F2D22F4E13B600D93B98 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Vsevolond/PageflowSourceEditor.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D333F2D32F4E13B600D93B98 /* PageflowSourceEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D333F2D22F4E13B600D93B98 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */;
+			productName = PageflowSourceEditor;
+		};
+		D334BE302F438ABD00A677C3 /* PageflowSourceEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PageflowSourceEditor;
+		};
+		D368C8F62F41E5F1001E75BA /* PageflowSourceEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PageflowSourceEditor;
+		};
+		D3DEA50B2F4C85D600D0ED10 /* PageflowSourceEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PageflowSourceEditor;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D3A7E3F12EC391D100BBFACE /* Project object */;
 }
