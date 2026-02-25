@@ -7,6 +7,7 @@
 
 import Foundation
 import Rearrange
+import SwiftUI
 
 @MainActor
 enum PageflowSuggestions {}
@@ -18,8 +19,9 @@ extension PageflowSuggestions {
     // MARK: - Suggestions for context
     
     static func suggestions(
-        for context: PageflowSuggestionContext
-    ) -> [PageflowSuggestionEntry] {
+        for context: PageflowSuggestionContext,
+        provider: FileSuggestionsProvider?
+    ) -> [PageflowSuggestionEntry]? {
         switch context {
         case .content(let block):
             return contentSuggestions(for: block)
@@ -31,13 +33,13 @@ extension PageflowSuggestions {
             return valueSuggestions(for: type)
             
         case .text:
-            return []
+            return nil
+            
+        case .file(let type):
+            return fileSuggestions(for: type, provider: provider)
             
         case .math:
             return mathSuggestions
-            
-        case .file:
-            return []
             
         case .boolean:
             return booleanSuggestions
@@ -56,7 +58,6 @@ extension PageflowSuggestions {
         case .root: [
             PageflowSuggestions.Blocks.newPage,
             PageflowSuggestions.Blocks.section,
-            PageflowSuggestions.Blocks.subSection,
             PageflowSuggestions.Blocks.vStack,
             PageflowSuggestions.Blocks.hStack,
             PageflowSuggestions.Blocks.zStack,
@@ -785,5 +786,40 @@ extension PageflowSuggestions {
             PageflowSuggestions.Booleans.true,
             PageflowSuggestions.Booleans.false
         ]
+    }
+    
+    // MARK: - File Suggestions
+    
+    private static func fileSuggestions(
+        for type: PageflowSuggestionContext.FileTypes,
+        provider: FileSuggestionsProvider?
+    ) -> [PageflowSuggestionEntry]? {
+        guard let provider else { return nil }
+        
+        switch type {
+        case .image:
+            let images = provider.images
+            
+            return images.map { name in
+                PageflowSuggestionEntry(
+                    label: name,
+                    image: Image(systemName: "i.square.fill"),
+                    imageColor: .blue,
+                    insertText: name
+                )
+            }
+            
+        case .listing:
+            let listings = provider.listings
+            
+            return listings.map { name in
+                PageflowSuggestionEntry(
+                    label: name,
+                    image: Image(systemName: "l.square.fill"),
+                    imageColor: .blue,
+                    insertText: name
+                )
+            }
+        }
     }
 }

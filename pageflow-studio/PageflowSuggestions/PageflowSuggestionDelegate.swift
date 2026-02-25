@@ -16,11 +16,27 @@ import CodeEditTextView
 import SwiftTreeSitter
 import TreeSitter
 
+// MARK: - File Suggestions Provider
+
+protocol FileSuggestionsProvider: AnyObject {
+    var images: [String] { get }
+    var listings: [String] { get }
+}
+
+// MARK: - Pageflow Suggestion Delegate
+
 final class PageflowSuggestionDelegate: CodeSuggestionDelegate, ObservableObject {
     
     // MARK: - Private Properties
     
+    private weak var provider: FileSuggestionsProvider?
     private var lastPosition: CursorPosition?
+    
+    // MARK: - Initializers
+    
+    init(provider: FileSuggestionsProvider) {
+        self.provider = provider
+    }
     
     // MARK: - Internal Methods
     
@@ -79,31 +95,24 @@ final class PageflowSuggestionDelegate: CodeSuggestionDelegate, ObservableObject
         cursorPosition: CursorPosition?
     ) {
         guard let suggestion = item as? PageflowSuggestionEntry,
-              let cursorPosition
-        else {
-            return
-        }
-        
-        guard let tree = textView.treeSitterClient?.state?.tree,
-              let root = tree.rootNode,
-              let node = root.namedDescendant(for: cursorPosition.range.location, in: textView),
-              let (_, nodeRange) = context(textView: textView, cursorPosition: cursorPosition)
+              let cursorPosition,
+              let (_, range) = context(textView: textView, cursorPosition: cursorPosition)
         else {
             return
         }
         
         textView.textView.undoManager?.beginUndoGrouping()
-        textView.textView.selectionManager.setSelectedRange(nodeRange.isEmpty ? cursorPosition.range : node.range)
+        textView.textView.selectionManager.setSelectedRange(range.isEmpty ? cursorPosition.range : range)
         
         textView.textView.insertText(suggestion.insertText)
         textView.textView.undoManager?.endUndoGrouping()
         
-        let offset = cursorPosition.range.location - nodeRange.length
+        let offset = cursorPosition.range.location - range.length
                      + suggestion.insertText.count - (suggestion.cursorOffset ?? 0)
         
-        let range = NSRange(location: offset, length: 0)
-        let position = CursorPosition(range: range)
-        
+        let position = CursorPosition(
+            range: NSRange(location: offset, length: 0)
+        )
         textView.setCursorPositions([position])
     }
 }
@@ -193,6 +202,47 @@ extension PageflowSuggestionDelegate {
             }
             
             return (context, node.range)
+        
+        /// when typed any letter for boolean
+        } else if let parent = node.parent,
+                  parent.nodeType == "bool_type"
+        {
+            /// boolean
+            return (.boolean, node.range)
+        
+        /// when typed slash in math
+        } else if node.nodeType == "math_text",
+                  let string = textView.textView.substring(
+                    from: NSRange(
+                        location: node.range.location,
+                        length: cursorPosition.range.location - node.range.location
+                    )
+                  ),
+                  let offset = mathOffset(in: string)
+        {
+            /// math
+            let range = NSRange(
+                location: cursorPosition.range.location - offset,
+                length: offset
+            )
+            
+            return (.math, range)
+            
+        /// when inside file name
+        } else if node.nodeType == "file_name" {
+            /// file
+            let block = parentBlock(of: node)
+            
+            switch block {
+            case "image_element":
+                return (.file(.image), node.range)
+                
+            case "listing_element":
+                return (.file(.listing), node.range)
+                
+            default:
+                return nil
+            }
             
         /// when typed any letter inside content block
         } else {
@@ -224,12 +274,6 @@ extension PageflowSuggestionDelegate {
             case "zstack_block":
                 return (.content(.zStack), node.range)
                 
-            case "text_block", "math_block",
-                 "image_element", "listing_element",
-                 "spacer_element", "divider_element":
-                // TODO
-                return nil
-                
             default:
                 return nil
             }
@@ -241,14 +285,15 @@ extension PageflowSuggestionDelegate {
         context: PageflowSuggestionContext,
         filter prefix: String? = nil
     ) -> [PageflowSuggestionEntry]? {
-        guard context != .text && context != .file else {
+        guard let suggestions = PageflowSuggestions.suggestions(
+            for: context,
+            provider: provider
+        ) else {
             return nil
         }
         
-        let suggestions = PageflowSuggestions.suggestions(for: context)
-        
         if let prefix, prefix.count > 0 {
-            return suggestions.filter { $0.label.hasPrefix(prefix) }
+            return suggestions.filter { $0.label.hasPrefix(prefix) && $0.label != prefix }
             
         } else {
             return suggestions
@@ -410,6 +455,26 @@ extension PageflowSuggestionDelegate {
         
         return nil
     }
+    
+    /// Returns offset to first slash
+    private func mathOffset(in string: String) -> Int? {
+        var index = string.index(before: string.endIndex)
+        
+        while index >= string.startIndex {
+            let char = string[index]
+            
+            if char == "\\" {
+                let offset = string.distance(from: index, to: string.endIndex)
+                return offset
+            }
+            
+            if !char.isLetter { return nil }
+            
+            index = string.index(before: index)
+        }
+        
+        return nil
+    }
 }
 
 // MARK: - Private Extensions
@@ -457,7 +522,7 @@ private extension Node {
     /// Returns node containing location
     func contains(_ location: Int, in textView: TextViewController) -> Bool {
         let byteOffset = textView.byteOffsetForLocation(location)
-        return byteRange.contains(byteOffset) || byteRange.upperBound == byteOffset
+        return byteRange.contains(byteOffset)
     }
 }
 

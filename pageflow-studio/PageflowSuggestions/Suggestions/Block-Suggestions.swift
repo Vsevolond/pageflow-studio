@@ -85,8 +85,8 @@ extension PageflowSuggestions {
                 detail: "Текстовый блок",
                 image: Image(systemName: "b.square.fill"),
                 imageColor: .purple,
-                insertText: "Text { \"\" }",
-                cursorOffset: 3
+                insertText: "Text {}",
+                cursorOffset: 1
             )
         }
         
@@ -96,8 +96,8 @@ extension PageflowSuggestions {
                 detail: "Математический блок",
                 image: Image(systemName: "b.square.fill"),
                 imageColor: .purple,
-                insertText: "Math { $$ }",
-                cursorOffset: 3
+                insertText: "Math {}",
+                cursorOffset: 1
             )
         }
         

@@ -28,18 +28,6 @@ enum PageflowSuggestionContext: Equatable {
         case image, listing
     }
     
-//    // MARK: - Modifiers with types available
-//    
-//    enum Modifiers: Equatable {
-//        case vAlignment, hAlignment, zAlignment
-//        case layout, offset, margin
-//        case tint, background
-//        case textAlignment
-//        case underline, strikethrough
-//        case fontSize, fontStyle
-//        case codeLanguage, codeStyle, codeFrame
-//    }
-    
     // MARK: - Types with values available
     
     enum Types: Equatable {
@@ -51,14 +39,21 @@ enum PageflowSuggestionContext: Equatable {
         case codeLanguage, codeStyle, codeFrame
     }
     
+    // MARK: - File Type
+    
+    enum FileTypes: Equatable {
+        case image
+        case listing
+    }
+    
     // MARK: - Cases
     
     case content(Blocks)
     case modifier(Elements)
     case value(Types)
+    case file(FileTypes)
     case text
     case math
-    case file
     case boolean
     case constant
 }

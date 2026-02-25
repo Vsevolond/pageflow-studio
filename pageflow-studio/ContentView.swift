@@ -19,9 +19,18 @@ struct ContentView: View {
     
     @State private var theme = EditorTheme.light
     
-    @StateObject private var suggestions = PageflowSuggestionDelegate()
-    
     @Environment(\.colorScheme) private var colorScheme
+    
+    @StateObject private var model: ContentViewModel
+    @StateObject private var suggestions: PageflowSuggestionDelegate
+    
+    init() {
+        let model = ContentViewModel()
+        let suggestions = PageflowSuggestionDelegate(provider: model)
+        
+        self._model = StateObject(wrappedValue: model)
+        self._suggestions = StateObject(wrappedValue: suggestions)
+    }
     
     var body: some View {
         SourceEditor(
