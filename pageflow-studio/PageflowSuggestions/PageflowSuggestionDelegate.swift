@@ -24,6 +24,10 @@ final class PageflowSuggestionDelegate: CodeSuggestionDelegate, ObservableObject
     
     // MARK: - Internal Methods
     
+    func completionTriggerCharacters() -> Set<String> {
+        [".", "@", "\\"]
+    }
+    
     func completionSuggestionsRequested(
         textView: TextViewController,
         cursorPosition: CursorPosition
@@ -82,21 +86,19 @@ final class PageflowSuggestionDelegate: CodeSuggestionDelegate, ObservableObject
         
         guard let tree = textView.treeSitterClient?.state?.tree,
               let root = tree.rootNode,
-              let node = root.namedDescendant(
-                for: cursorPosition.range.location,
-                in: textView
-              )
+              let node = root.namedDescendant(for: cursorPosition.range.location, in: textView),
+              let (_, nodeRange) = context(textView: textView, cursorPosition: cursorPosition)
         else {
             return
         }
         
         textView.textView.undoManager?.beginUndoGrouping()
-        textView.textView.selectionManager.setSelectedRange(node.range)
+        textView.textView.selectionManager.setSelectedRange(nodeRange.isEmpty ? cursorPosition.range : node.range)
         
         textView.textView.insertText(suggestion.insertText)
         textView.textView.undoManager?.endUndoGrouping()
         
-        let offset = cursorPosition.range.location - node.range.length
+        let offset = cursorPosition.range.location - nodeRange.length
                      + suggestion.insertText.count - (suggestion.cursorOffset ?? 0)
         
         let range = NSRange(location: offset, length: 0)
@@ -118,51 +120,95 @@ extension PageflowSuggestionDelegate {
     ) -> (context: PageflowSuggestionContext, range: NSRange)? {
         guard let tree = textView.treeSitterClient?.state?.tree,
               let root = tree.rootNode,
-              let node = root.namedDescendant(
-                for: cursorPosition.range.location,
-                in: textView
-              ),
-              let block = parentBlock(of: node)
+              let node = root.namedDescendant(for: cursorPosition.range.location, in: textView)
         else {
             return nil
         }
         
-        print(node.nodeType as Any)
         debug(tree: tree)
         
-        switch block {
-        case "source_file":
-            return (.content(.root), node.range)
+        /// when typed any letter after dot for block
+        if let prevSibling = node.previousSibling, prevSibling.nodeType == "." {
+            /// block modifier
+            guard let parent = node.parent,
+                  let context = modifierContext(for: parent.previousNamedSibling)
+            else {
+                return nil
+            }
             
-        case "newpage_block":
-            return (.content(.newPage), node.range)
+            return (context, node.range)
+        
+        /// when typed dot after block
+        } else if let firstChild = node.firstChild, node.childCount == 1, firstChild.nodeType == "." {
+            /// block modifier
+            guard let context = modifierContext(for: node.previousNamedSibling) else {
+                return nil
+            }
             
-        case "section_newpage_block":
-            return (.content(.sectionNewPage), node.range)
+            return (context, .zero)
             
-        case "section_block":
-            return (.content(.section), node.range)
+        /// when typed dot for type value
+        } else if let child = node.descendant(for: cursorPosition.range.location, in: textView, subOnly: true),
+                  child.nodeType == "."
+        {
+            /// type value
+            guard let context = valueContext(for: child.parent) else {
+                return nil
+            }
             
-        case "subsection_block":
-            return (.content(.subSection), node.range)
+            return (context, .zero)
+        
+        /// when typed any letter after dot for type value
+        } else if let parent = node.parent,
+                  let prevNode = parent.previousSibling,
+                  prevNode.nodeType == "."
+        {
+            /// type value
+            guard let context = valueContext(for: prevNode.parent) else {
+                return nil
+            }
             
-        case "vstack_block":
-            return (.content(.vStack), node.range)
+            return (context, node.range)
             
-        case "hstack_block":
-            return (.content(.hStack), node.range)
+        /// when typed any letter inside content block
+        } else {
+            /// content block
+            let block = parentBlock(of: node)
             
-        case "zstack_block":
-            return (.content(.zStack), node.range)
-            
-        case "text_block", "math_block",
-             "image_element", "listing_element",
-             "spacer_element", "divider_element":
-            // TODO
-            return nil
-            
-        default:
-            return nil
+            switch block {
+            case "source_file":
+                return (.content(.root), node.range)
+                
+            case "newpage_block":
+                return (.content(.newPage), node.range)
+                
+            case "section_newpage_block":
+                return (.content(.sectionNewPage), node.range)
+                
+            case "section_block":
+                return (.content(.section), node.range)
+                
+            case "subsection_block":
+                return (.content(.subSection), node.range)
+                
+            case "vstack_block":
+                return (.content(.vStack), node.range)
+                
+            case "hstack_block":
+                return (.content(.hStack), node.range)
+                
+            case "zstack_block":
+                return (.content(.zStack), node.range)
+                
+            case "text_block", "math_block",
+                 "image_element", "listing_element",
+                 "spacer_element", "divider_element":
+                // TODO
+                return nil
+                
+            default:
+                return nil
+            }
         }
     }
     
@@ -181,6 +227,99 @@ extension PageflowSuggestionDelegate {
             
         } else {
             return suggestions
+        }
+    }
+    
+    private func modifierContext(for node: Node?) -> PageflowSuggestionContext? {
+        guard let node else { return nil }
+        
+        switch node.nodeType {
+        case "element", "newpage_content", "section_newpage_content",
+            "section_content", "content":
+            let block = childBlock(of: node)
+            
+            switch block {
+            case "newpage_block", "section_newpage_block":
+                return .modifier(.newPage)
+                
+            case "section_block", "subsection_block", "spacer_element":
+                return nil
+                
+            case "vstack_block":
+                return .modifier(.vStack)
+                
+            case "hstack_block":
+                return .modifier(.hStack)
+                
+            case "zstack_block":
+                return .modifier(.zStack)
+                
+            case "text_block":
+                return .modifier(.text)
+                
+            case "math_block":
+                return .modifier(.math)
+                
+            case "image_element":
+                return .modifier(.image)
+                
+            case "listing_element":
+                return .modifier(.listing)
+                
+            case "divider_element":
+                return .modifier(.divider)
+                
+            default:
+                return nil
+            }
+            
+        default:
+            return nil
+        }
+    }
+    
+    private func valueContext(for node: Node?) -> PageflowSuggestionContext? {
+        guard let node else { return nil }
+        
+        switch node.nodeType {
+        case "horizontal_alignment_type":
+            return .value(.horizontalAlignment)
+
+        case "vertical_alignment_type":
+            return .value(.verticalAlignment)
+            
+        case "alignment_type":
+            return .value(.alignment)
+            
+        case "edge_type":
+            return .value(.edge)
+            
+        case "axis_type":
+            return .value(.axis)
+            
+        case "color_type":
+            return .value(.color)
+            
+        case "line_pattern_type":
+            return .value(.linePattern)
+            
+        case "font_size_type":
+            return .value(.fontSize)
+            
+        case "font_style_type":
+            return .value(.fontStyle)
+            
+        case "code_language_type":
+            return .value(.codeLanguage)
+            
+        case "code_style_type":
+            return .value(.codeStyle)
+            
+        case "code_frame_type":
+            return .value(.codeFrame)
+            
+        default:
+            return nil
         }
     }
     
@@ -204,6 +343,31 @@ extension PageflowSuggestionDelegate {
             return parentBlock(of: parent)
         }
     }
+    
+    private func childBlock(of parent: Node) -> String? {
+        for i in 0..<parent.namedChildCount {
+            guard let child = parent.namedChild(at: i),
+                  let type = child.nodeType
+            else {
+                continue
+            }
+            
+            switch type {
+            case "newpage_block", "section_newpage_block",
+                 "section_block", "subsection_block",
+                 "vstack_block", "hstack_block", "zstack_block",
+                 "text_block", "math_block",
+                 "image_element", "listing_element",
+                 "spacer_element", "divider_element":
+                return type
+                
+            default:
+                return childBlock(of: child)
+            }
+        }
+        
+        return nil
+    }
 }
 
 // MARK: - Private Extensions
@@ -212,7 +376,25 @@ private extension Node {
     
     // MARK: - Internal Methods
     
-    func namedDescendant(for location: Int, in textView: TextViewController) -> Node? {
+    func descendant(for location: Int, in textView: TextViewController, subOnly: Bool = false) -> Node? {
+        guard contains(location, in: textView) else {
+            return nil
+        }
+        
+        for i in 0..<childCount {
+            guard let child = child(at: i) else {
+                continue
+            }
+            
+            if child.contains(location, in: textView) {
+                return child.descendant(for: location, in: textView)
+            }
+        }
+        
+        return subOnly ? nil : self
+    }
+    
+    func namedDescendant(for location: Int, in textView: TextViewController, subOnly: Bool = false) -> Node? {
         guard contains(location, in: textView) else {
             return nil
         }
@@ -227,7 +409,7 @@ private extension Node {
             }
         }
         
-        return self
+        return subOnly ? nil : self
     }
     
     // MARK: - Support Methods
@@ -268,7 +450,6 @@ extension PageflowSuggestionDelegate {
     private func debug(node: Node, indent: String = "") {
         let type = node.nodeType ?? "unknown"
         let range = node.byteRange
-        let pointRange = node.pointRange
         
         print("\(indent)\(type) [\(range.lowerBound)-\(range.upperBound)]")
         

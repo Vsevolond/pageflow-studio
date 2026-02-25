@@ -20,7 +20,7 @@ extension PageflowSuggestions {
                 detail: "Горизонтальное выравнивание элементов",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "alignment(HorizontalAlignment)",
+                insertText: "alignment()",
                 cursorOffset: 1
             )
         }
@@ -31,7 +31,7 @@ extension PageflowSuggestions {
                 detail: "Вертикальное выравнивание элементов",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "alignment(VerticalAlignment)",
+                insertText: "alignment()",
                 cursorOffset: 1
             )
         }
@@ -42,7 +42,7 @@ extension PageflowSuggestions {
                 detail: "Выравнивание элементов",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "alignment(Alignment)",
+                insertText: "alignment()",
                 cursorOffset: 1
             )
         }
@@ -97,7 +97,7 @@ extension PageflowSuggestions {
                 detail: "Расположение",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "layout(Alignment)",
+                insertText: "layout()",
                 cursorOffset: 1
             )
         }
@@ -105,33 +105,132 @@ extension PageflowSuggestions {
         static var padding: PageflowSuggestionEntry {
             PageflowSuggestionEntry(
                 label: "padding",
-                detail: "Внешний отступ от элементов",
+                detail: "Внешний отступ от элементов (по умолчанию - all)",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "padding(Edge, )",
-                cursorOffset: 3
+                insertText: "padding()",
+                cursorOffset: 1
+            )
+        }
+        
+        static var paddingTop: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "padding",
+                detail: "Внешний отступ от элементов сверху",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "padding(, .top)",
+                cursorOffset: 7
+            )
+        }
+        
+        static var paddingBottom: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "padding",
+                detail: "Внешний отступ от элементов снизу",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "padding(, .bottom)",
+                cursorOffset: 10
+            )
+        }
+        
+        static var paddingLeading: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "padding",
+                detail: "Внешний отступ от элементов слева",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "padding(, .leading)",
+                cursorOffset: 11
+            )
+        }
+        
+        static var paddingTrailing: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "padding",
+                detail: "Внешний отступ от элементов справа",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "padding(, .trailing)",
+                cursorOffset: 12
             )
         }
         
         static var offset: PageflowSuggestionEntry {
             PageflowSuggestionEntry(
-                label: "padding",
-                detail: "Смещение по оси",
+                label: "offset",
+                detail: "Смещение по оси (по умолчанию - horizontal)",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "offset(Axis, )",
-                cursorOffset: 3
+                insertText: "offset()",
+                cursorOffset: 1
+            )
+        }
+        
+        static var offsetVertical: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "offset",
+                detail: "Смещение по вертикальной оси",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "offset(, .vertical)",
+                cursorOffset: 12
             )
         }
         
         static var margin: PageflowSuggestionEntry {
             PageflowSuggestionEntry(
                 label: "margin",
-                detail: "Внутренний отступ элементов от краев",
+                detail: "Внутренний отступ элементов от краев (по умолчанию - all)",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "margin(Edge, )",
-                cursorOffset: 3
+                insertText: "margin()",
+                cursorOffset: 1
+            )
+        }
+        
+        static var marginTop: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "margin",
+                detail: "Внутренний отступ элементов от верхнего края",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "margin(, .top)",
+                cursorOffset: 7
+            )
+        }
+        
+        static var marginBottom: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "margin",
+                detail: "Внутренний отступ элементов от нижнего края",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "margin(, .bottom)",
+                cursorOffset: 10
+            )
+        }
+        
+        static var marginLeading: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "margin",
+                detail: "Внутренний отступ элементов от левого края",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "margin(, .leading)",
+                cursorOffset: 11
+            )
+        }
+        
+        static var marginTrailing: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "margin",
+                detail: "Внутренний отступ элементов от правого края",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "margin(, .trailing)",
+                cursorOffset: 12
             )
         }
         
@@ -159,7 +258,7 @@ extension PageflowSuggestions {
         
         static var subfigure: PageflowSuggestionEntry {
             PageflowSuggestionEntry(
-                label: "caption",
+                label: "subfigure",
                 detail: "Подфигура (по умолчанию - false)",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
@@ -185,7 +284,7 @@ extension PageflowSuggestions {
                 detail: "Цвет элемента",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "tint(Color)",
+                insertText: "tint()",
                 cursorOffset: 1
             )
         }
@@ -196,7 +295,7 @@ extension PageflowSuggestions {
                 detail: "Цвет фона",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "background(Color)",
+                insertText: "background()",
                 cursorOffset: 1
             )
         }
@@ -207,7 +306,7 @@ extension PageflowSuggestions {
                 detail: "Выравнивание текста",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "textAlignment(HorizontalAlignment)",
+                insertText: "textAlignment()",
                 cursorOffset: 1
             )
         }
@@ -226,22 +325,110 @@ extension PageflowSuggestions {
         static var underline: PageflowSuggestionEntry {
             PageflowSuggestionEntry(
                 label: "underline",
-                detail: "Подчеркивание",
+                detail: "Подчеркивание (цвет по умолчанию - black)",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "underline(LinePattern, Color)",
-                cursorOffset: 8
+                insertText: "underline()",
+                cursorOffset: 1
+            )
+        }
+        
+        static var underlineDash: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "underline",
+                detail: "Подчеркивание тире",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "underline(.dash, )",
+                cursorOffset: 1
+            )
+        }
+        
+        static var underlineDashDot: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "underline",
+                detail: "Подчеркивание тире - точка",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "underline(.dashDot, )",
+                cursorOffset: 1
+            )
+        }
+        
+        static var underlineDashDotDot: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "underline",
+                detail: "Подчеркивание тире - точка - точка",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "underline(.dashDotDot, )",
+                cursorOffset: 1
+            )
+        }
+        
+        static var underlineSolid: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "underline",
+                detail: "Подчеркивание сплошной линией",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "underline(.solid, )",
+                cursorOffset: 1
             )
         }
         
         static var strikethrough: PageflowSuggestionEntry {
             PageflowSuggestionEntry(
                 label: "strikethrough",
-                detail: "Зачеркивание",
+                detail: "Зачеркивание (цвет по умолчанию - black)",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "strikethrough(LinePattern, Color)",
-                cursorOffset: 8
+                insertText: "strikethrough()",
+                cursorOffset: 1
+            )
+        }
+        
+        static var strikethroughDash: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "strikethrough",
+                detail: "Зачеркивание тире",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "strikethrough(.dash, )",
+                cursorOffset: 1
+            )
+        }
+        
+        static var strikethroughDashDot: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "strikethrough",
+                detail: "Зачеркивание тире - точка",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "strikethrough(.dashDot, )",
+                cursorOffset: 1
+            )
+        }
+        
+        static var strikethroughDashDotDot: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "strikethrough",
+                detail: "Зачеркивание тире - точка - точка",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "strikethrough(.dashDotDot, )",
+                cursorOffset: 1
+            )
+        }
+        
+        static var strikethroughSolid: PageflowSuggestionEntry {
+            PageflowSuggestionEntry(
+                label: "strikethrough",
+                detail: "Зачеркивание сплошной линией",
+                image: Image(systemName: "m.square.fill"),
+                imageColor: .blue,
+                insertText: "strikethrough(.solid, )",
+                cursorOffset: 1
             )
         }
         
@@ -251,7 +438,7 @@ extension PageflowSuggestions {
                 detail: "Размер шрифта",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "fontSize(FontSize)",
+                insertText: "fontSize()",
                 cursorOffset: 1
             )
         }
@@ -262,7 +449,7 @@ extension PageflowSuggestions {
                 detail: "Стиль шрифта",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "fontStyle(FontStyle)",
+                insertText: "fontStyle()",
                 cursorOffset: 1
             )
         }
@@ -273,7 +460,7 @@ extension PageflowSuggestions {
                 detail: "Язык программирования",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "language(CodeLanguage)",
+                insertText: "language()",
                 cursorOffset: 1
             )
         }
@@ -284,7 +471,7 @@ extension PageflowSuggestions {
                 detail: "Стиль подсветки",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "style(CodeStyle)",
+                insertText: "style()",
                 cursorOffset: 1
             )
         }
@@ -295,7 +482,7 @@ extension PageflowSuggestions {
                 detail: "Рамка",
                 image: Image(systemName: "m.square.fill"),
                 imageColor: .blue,
-                insertText: "frame(CodeFrame)",
+                insertText: "frame()",
                 cursorOffset: 1
             )
         }

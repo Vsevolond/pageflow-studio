@@ -57,7 +57,7 @@ extension PageflowSuggestions.Values {
         static var solid: PageflowSuggestionEntry {
             PageflowSuggestionEntry(
                 label: "solid",
-                detail: "Сплошная",
+                detail: "Сплошная линия",
                 image: Image(systemName: "p.square.fill"),
                 imageColor: .blue,
                 insertText: "solid"

@@ -58,8 +58,7 @@ extension EditorTheme {
         selection: .init(hex: "B2D7FF"),
         blocks: Attribute(color: .init(hex: "4624A9"), bold: true), // violet
         modifiers: Attribute(color: .init(hex: "7951B2")),          // light violet
-        types: Attribute(color: .init(hex: "4624A9")),              // violet
-        typeValues: Attribute(color: .init(hex: "7951B2")),         // light violet
+        typeValues: Attribute(color: .init(hex: "4624A9")),         // violet
         numbers: Attribute(color: .init(hex: "2729CF")),            // blue
         constants: Attribute(color: .init(hex: "296188")),          // teal
         booleans: Attribute(color: .init(hex: "A0459F")),           // pink
@@ -68,7 +67,8 @@ extension EditorTheme {
         fileStrings: Attribute(color: .init(hex: "31565B")),        // green
         textSeparator: Attribute(color: .init(hex: "367AAB")),      // cyan
         textDelimiter: Attribute(color: .init(hex: "C13E2A")),      // red
-        mathDelimiter: Attribute(color: .init(hex: "4F7E86"))       // light green
+        mathDelimiter: Attribute(color: .init(hex: "4F7E86")),      // light green
+        invalids: Attribute(color: .init(hex: "262626"))            // black
     )
     
     static let dark = EditorTheme(
@@ -80,8 +80,7 @@ extension EditorTheme {
         selection: .init(hex: "646F83"),
         blocks: Attribute(color: .init(hex: "D5BBFA"), bold: true), // light violet
         modifiers: Attribute(color: .init(hex: "AA84E5")),          // violet
-        types: Attribute(color: .init(hex: "D5BBFA")),              // light violet
-        typeValues: Attribute(color: .init(hex: "AA84E5")),         // violet
+        typeValues: Attribute(color: .init(hex: "D5BBFA")),         // light violet
         numbers: Attribute(color: .init(hex: "D6C986")),            // yellow
         constants: Attribute(color: .init(hex: "89DCFB")),          // cyan
         booleans: Attribute(color: .init(hex: "EE81B0")),           // pink
@@ -90,7 +89,8 @@ extension EditorTheme {
         fileStrings: Attribute(color: .init(hex: "BBF0E4")),        // light green
         textSeparator: Attribute(color: .init(hex: "69AEC8")),      // blue
         textDelimiter: Attribute(color: .init(hex: "EF8876")),      // red
-        mathDelimiter: Attribute(color: .init(hex: "89C0B3"))       // green
+        mathDelimiter: Attribute(color: .init(hex: "89C0B3")),      // green
+        invalids: Attribute(color: .init(hex: "DFDFE0"))            // white
     )
 }
 

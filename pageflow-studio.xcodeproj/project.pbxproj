@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D333F2D42F4E13B600D93B98 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D333F2D32F4E13B600D93B98 /* PageflowSourceEditor */; };
 		D334BE312F438ABD00A677C3 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D334BE302F438ABD00A677C3 /* PageflowSourceEditor */; };
 		D368C8F72F41E5F1001E75BA /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D368C8F62F41E5F1001E75BA /* PageflowSourceEditor */; };
+		D3B0528F2F4F3B6C0051DD53 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D3B0528E2F4F3B6C0051DD53 /* PageflowSourceEditor */; };
 		D3DEA50C2F4C85D600D0ED10 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D3DEA50B2F4C85D600D0ED10 /* PageflowSourceEditor */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D368C8F72F41E5F1001E75BA /* PageflowSourceEditor in Frameworks */,
-				D333F2D42F4E13B600D93B98 /* PageflowSourceEditor in Frameworks */,
+				D3B0528F2F4F3B6C0051DD53 /* PageflowSourceEditor in Frameworks */,
 				D334BE312F438ABD00A677C3 /* PageflowSourceEditor in Frameworks */,
 				D3DEA50C2F4C85D600D0ED10 /* PageflowSourceEditor in Frameworks */,
 			);
@@ -79,7 +79,7 @@
 				D368C8F62F41E5F1001E75BA /* PageflowSourceEditor */,
 				D334BE302F438ABD00A677C3 /* PageflowSourceEditor */,
 				D3DEA50B2F4C85D600D0ED10 /* PageflowSourceEditor */,
-				D333F2D32F4E13B600D93B98 /* PageflowSourceEditor */,
+				D3B0528E2F4F3B6C0051DD53 /* PageflowSourceEditor */,
 			);
 			productName = "pageflow-studio";
 			productReference = D3A7E3F92EC391D200BBFACE /* pageflow-studio.app */;
@@ -110,7 +110,7 @@
 			mainGroup = D3A7E3F02EC391D100BBFACE;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				D333F2D22F4E13B600D93B98 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */,
+				D3B0528D2F4F3B6C0051DD53 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D3A7E3FA2EC391D200BBFACE /* Products */;
@@ -357,28 +357,28 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D333F2D22F4E13B600D93B98 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */ = {
+		D3B0528D2F4F3B6C0051DD53 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Vsevolond/PageflowSourceEditor.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.1;
+				minimumVersion = 0.2.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D333F2D32F4E13B600D93B98 /* PageflowSourceEditor */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D333F2D22F4E13B600D93B98 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */;
-			productName = PageflowSourceEditor;
-		};
 		D334BE302F438ABD00A677C3 /* PageflowSourceEditor */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PageflowSourceEditor;
 		};
 		D368C8F62F41E5F1001E75BA /* PageflowSourceEditor */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = PageflowSourceEditor;
+		};
+		D3B0528E2F4F3B6C0051DD53 /* PageflowSourceEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3B0528D2F4F3B6C0051DD53 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */;
 			productName = PageflowSourceEditor;
 		};
 		D3DEA50B2F4C85D600D0ED10 /* PageflowSourceEditor */ = {

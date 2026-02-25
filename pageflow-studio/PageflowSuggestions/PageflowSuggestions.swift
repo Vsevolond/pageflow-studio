@@ -27,9 +27,6 @@ extension PageflowSuggestions {
         case .modifier(let element):
             return modifierSuggestions(for: element)
             
-        case .type(let modifier):
-            return typeSuggestions(for: modifier)
-            
         case .value(let type):
             return valueSuggestions(for: type)
             
@@ -150,7 +147,11 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.header,
             PageflowSuggestions.Modifiers.footer,
             /// inset modifiers
-            PageflowSuggestions.Modifiers.margin
+            PageflowSuggestions.Modifiers.margin,
+            PageflowSuggestions.Modifiers.marginTop,
+            PageflowSuggestions.Modifiers.marginBottom,
+            PageflowSuggestions.Modifiers.marginLeading,
+            PageflowSuggestions.Modifiers.marginTrailing
         ]
             
         case .vStack: [
@@ -161,9 +162,18 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.layout,
             /// layout modifiers
             PageflowSuggestions.Modifiers.padding,
+            PageflowSuggestions.Modifiers.paddingTop,
+            PageflowSuggestions.Modifiers.paddingBottom,
+            PageflowSuggestions.Modifiers.paddingLeading,
+            PageflowSuggestions.Modifiers.paddingTrailing,
             PageflowSuggestions.Modifiers.offset,
+            PageflowSuggestions.Modifiers.offsetVertical,
             /// inset modifiers
             PageflowSuggestions.Modifiers.margin,
+            PageflowSuggestions.Modifiers.marginTop,
+            PageflowSuggestions.Modifiers.marginBottom,
+            PageflowSuggestions.Modifiers.marginLeading,
+            PageflowSuggestions.Modifiers.marginTrailing,
             /// figure modifiers
             PageflowSuggestions.Modifiers.enumerated,
             PageflowSuggestions.Modifiers.caption,
@@ -185,9 +195,19 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.layout,
             /// layout modifiers
             PageflowSuggestions.Modifiers.padding,
+            PageflowSuggestions.Modifiers.paddingTop,
+            PageflowSuggestions.Modifiers.paddingBottom,
+            PageflowSuggestions.Modifiers.paddingLeading,
+            PageflowSuggestions.Modifiers.paddingTrailing,
             PageflowSuggestions.Modifiers.offset,
+            PageflowSuggestions.Modifiers.offsetVertical,
             /// inset modifiers
             PageflowSuggestions.Modifiers.margin,
+            PageflowSuggestions.Modifiers.margin,
+            PageflowSuggestions.Modifiers.marginTop,
+            PageflowSuggestions.Modifiers.marginBottom,
+            PageflowSuggestions.Modifiers.marginLeading,
+            PageflowSuggestions.Modifiers.marginTrailing,
             /// figure modifiers
             PageflowSuggestions.Modifiers.enumerated,
             PageflowSuggestions.Modifiers.caption,
@@ -209,9 +229,19 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.layout,
             /// layout modifiers
             PageflowSuggestions.Modifiers.padding,
+            PageflowSuggestions.Modifiers.paddingTop,
+            PageflowSuggestions.Modifiers.paddingBottom,
+            PageflowSuggestions.Modifiers.paddingLeading,
+            PageflowSuggestions.Modifiers.paddingTrailing,
             PageflowSuggestions.Modifiers.offset,
+            PageflowSuggestions.Modifiers.offsetVertical,
             /// inset modifiers
             PageflowSuggestions.Modifiers.margin,
+            PageflowSuggestions.Modifiers.margin,
+            PageflowSuggestions.Modifiers.marginTop,
+            PageflowSuggestions.Modifiers.marginBottom,
+            PageflowSuggestions.Modifiers.marginLeading,
+            PageflowSuggestions.Modifiers.marginTrailing,
             /// figure modifiers
             PageflowSuggestions.Modifiers.enumerated,
             PageflowSuggestions.Modifiers.caption,
@@ -231,7 +261,15 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.lineSpacing,
             /// text editing modifiers
             PageflowSuggestions.Modifiers.underline,
+            PageflowSuggestions.Modifiers.underlineDash,
+            PageflowSuggestions.Modifiers.underlineDashDot,
+            PageflowSuggestions.Modifiers.underlineDashDotDot,
+            PageflowSuggestions.Modifiers.underlineSolid,
             PageflowSuggestions.Modifiers.strikethrough,
+            PageflowSuggestions.Modifiers.strikethroughDash,
+            PageflowSuggestions.Modifiers.strikethroughDashDot,
+            PageflowSuggestions.Modifiers.strikethroughDashDotDot,
+            PageflowSuggestions.Modifiers.strikethroughSolid,
             /// font modifiers
             PageflowSuggestions.Modifiers.fontSize,
             PageflowSuggestions.Modifiers.fontStyle,
@@ -242,7 +280,12 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.layout,
             /// layout modifiers
             PageflowSuggestions.Modifiers.padding,
+            PageflowSuggestions.Modifiers.paddingTop,
+            PageflowSuggestions.Modifiers.paddingBottom,
+            PageflowSuggestions.Modifiers.paddingLeading,
+            PageflowSuggestions.Modifiers.paddingTrailing,
             PageflowSuggestions.Modifiers.offset,
+            PageflowSuggestions.Modifiers.offsetVertical,
             /// foreground modifiers
             PageflowSuggestions.Modifiers.tint,
             /// background modifiers
@@ -263,9 +306,19 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.layout,
             /// layout modifiers
             PageflowSuggestions.Modifiers.padding,
+            PageflowSuggestions.Modifiers.paddingTop,
+            PageflowSuggestions.Modifiers.paddingBottom,
+            PageflowSuggestions.Modifiers.paddingLeading,
+            PageflowSuggestions.Modifiers.paddingTrailing,
             PageflowSuggestions.Modifiers.offset,
+            PageflowSuggestions.Modifiers.offsetVertical,
             /// inset modifiers
             PageflowSuggestions.Modifiers.margin,
+            PageflowSuggestions.Modifiers.margin,
+            PageflowSuggestions.Modifiers.marginTop,
+            PageflowSuggestions.Modifiers.marginBottom,
+            PageflowSuggestions.Modifiers.marginLeading,
+            PageflowSuggestions.Modifiers.marginTrailing,
             /// foreground modifiers
             PageflowSuggestions.Modifiers.tint,
             /// background modifiers
@@ -280,7 +333,12 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.layout,
             /// layout modifiers
             PageflowSuggestions.Modifiers.padding,
+            PageflowSuggestions.Modifiers.paddingTop,
+            PageflowSuggestions.Modifiers.paddingBottom,
+            PageflowSuggestions.Modifiers.paddingLeading,
+            PageflowSuggestions.Modifiers.paddingTrailing,
             PageflowSuggestions.Modifiers.offset,
+            PageflowSuggestions.Modifiers.offsetVertical,
             /// foreground modifiers
             PageflowSuggestions.Modifiers.tint
         ]
@@ -293,7 +351,12 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.layout,
             /// layout modifiers
             PageflowSuggestions.Modifiers.padding,
+            PageflowSuggestions.Modifiers.paddingTop,
+            PageflowSuggestions.Modifiers.paddingBottom,
+            PageflowSuggestions.Modifiers.paddingLeading,
+            PageflowSuggestions.Modifiers.paddingTrailing,
             PageflowSuggestions.Modifiers.offset,
+            PageflowSuggestions.Modifiers.offsetVertical,
             /// figure modifiers
             PageflowSuggestions.Modifiers.enumerated,
             PageflowSuggestions.Modifiers.caption,
@@ -314,31 +377,6 @@ extension PageflowSuggestions {
             PageflowSuggestions.Modifiers.enumerated,
             PageflowSuggestions.Modifiers.caption
         ]
-        }
-    }
-    
-    // MARK: - Type Suggestions
-    
-    private static func typeSuggestions(
-        for modifier: PageflowSuggestionContext.Modifiers
-    ) -> [PageflowSuggestionEntry] {
-        switch modifier {
-        case .vAlignment: [PageflowSuggestions.Types.horizontalAlignment]
-        case .hAlignment: [PageflowSuggestions.Types.verticalAlignment]
-        case .zAlignment: [PageflowSuggestions.Types.alignment]
-        case .layout: [PageflowSuggestions.Types.alignment]
-        case .offset: [PageflowSuggestions.Types.axis]
-        case .margin: [PageflowSuggestions.Types.edge]
-        case .tint: [PageflowSuggestions.Types.color]
-        case .background: [PageflowSuggestions.Types.color]
-        case .textAlignment: [PageflowSuggestions.Types.horizontalAlignment]
-        case .underline: [PageflowSuggestions.Types.linePattern]
-        case .strikethrough: [PageflowSuggestions.Types.linePattern]
-        case .fontSize: [PageflowSuggestions.Types.fontSize]
-        case .fontStyle: [PageflowSuggestions.Types.fontStyle]
-        case .codeLanguage: [PageflowSuggestions.Types.codeLanguage]
-        case .codeStyle: [PageflowSuggestions.Types.codeStyle]
-        case .codeFrame: [PageflowSuggestions.Types.codeFrame]
         }
     }
     
