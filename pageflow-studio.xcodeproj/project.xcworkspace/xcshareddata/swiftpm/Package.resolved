@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Vsevolond/PageflowLanguage.git",
       "state" : {
-        "revision" : "9addb1261eea30ac9bb384a8e43d17e79d3023e3",
-        "version" : "0.2.2"
+        "revision" : "c4558f3a8ae671bfd67cd37c11beadf55379c23a",
+        "version" : "0.2.4"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Vsevolond/PageflowSourceEditor.git",
       "state" : {
-        "revision" : "4fbd27a0fe72e6c23d9f772dc4b355db01953414",
-        "version" : "0.2.4"
+        "revision" : "54077914abf02f0a8ae92e72279455dbc74e6437",
+        "version" : "0.2.6"
       }
     },
     {

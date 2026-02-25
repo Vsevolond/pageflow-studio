@@ -15,21 +15,21 @@ extension PageflowSuggestions {
         
         static var width: PageflowSuggestionEntry {
             PageflowSuggestionEntry(
-                label: "@width",
+                label: "width",
                 detail: "Ширина страницы",
-                image: Image(systemName: "с.square.fill"),
+                image: Image(systemName: "c.square.fill"),
                 imageColor: .blue,
-                insertText: "@width"
+                insertText: "width"
             )
         }
         
         static var height: PageflowSuggestionEntry {
             PageflowSuggestionEntry(
-                label: "@height",
+                label: "height",
                 detail: "Высота страницы",
-                image: Image(systemName: "с.square.fill"),
+                image: Image(systemName: "c.square.fill"),
                 imageColor: .blue,
-                insertText: "@height"
+                insertText: "height"
             )
         }
     }

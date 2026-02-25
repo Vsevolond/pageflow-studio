@@ -58,8 +58,8 @@ enum PageflowSuggestionContext: Equatable {
     case value(Types)
     case text
     case math
-    case expression
     case file
     case boolean
+    case constant
 }
 

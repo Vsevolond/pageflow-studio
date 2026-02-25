@@ -36,14 +36,14 @@ extension PageflowSuggestions {
         case .math:
             return mathSuggestions
             
-        case .expression:
-            return constantSuggestions
-            
         case .file:
             return []
             
         case .boolean:
             return booleanSuggestions
+            
+        case .constant:
+            return constantSuggestions
         }
     }
     

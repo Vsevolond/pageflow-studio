@@ -112,8 +112,7 @@ final class PageflowSuggestionDelegate: CodeSuggestionDelegate, ObservableObject
 
 extension PageflowSuggestionDelegate {
     
-    // MARK: - Private Methods
-    
+    /// Returns context for cursor position
     private func context(
         textView: TextViewController,
         cursorPosition: CursorPosition
@@ -147,16 +146,30 @@ extension PageflowSuggestionDelegate {
             
             return (context, .zero)
             
-        /// when typed dot for type value
+        /// when typed dot for type value or typed @ in expression
         } else if let child = node.descendant(for: cursorPosition.range.location, in: textView, subOnly: true),
-                  child.nodeType == "."
+                  child.nodeType == "." || child.nodeType == "@"
         {
+            switch child.nodeType {
             /// type value
-            guard let context = valueContext(for: child.parent) else {
+            case ".":
+                guard let context = valueContext(for: child.parent) else {
+                    return nil
+                }
+                
+                return (context, .zero)
+            
+            /// constant
+            case "@":
+                guard let context = constantContext(for: child.parent) else {
+                    return nil
+                }
+                
+                return (context, .zero)
+                
+            default:
                 return nil
             }
-            
-            return (context, .zero)
         
         /// when typed any letter after dot for type value
         } else if let parent = node.parent,
@@ -165,6 +178,17 @@ extension PageflowSuggestionDelegate {
         {
             /// type value
             guard let context = valueContext(for: prevNode.parent) else {
+                return nil
+            }
+            
+            return (context, node.range)
+        
+        /// when typed any letter after @ for constant
+        } else if let prevNode = node.previousSibling,
+                  prevNode.nodeType == "@"
+        {
+            /// constant
+            guard let context = constantContext(for: prevNode.parent) else {
                 return nil
             }
             
@@ -212,6 +236,7 @@ extension PageflowSuggestionDelegate {
         }
     }
     
+    /// Returns filtered suggestions
     private func suggestions(
         context: PageflowSuggestionContext,
         filter prefix: String? = nil
@@ -230,6 +255,7 @@ extension PageflowSuggestionDelegate {
         }
     }
     
+    /// Returns modifier context for block
     private func modifierContext(for node: Node?) -> PageflowSuggestionContext? {
         guard let node else { return nil }
         
@@ -278,6 +304,7 @@ extension PageflowSuggestionDelegate {
         }
     }
     
+    /// Returns value context for type
     private func valueContext(for node: Node?) -> PageflowSuggestionContext? {
         guard let node else { return nil }
         
@@ -323,6 +350,20 @@ extension PageflowSuggestionDelegate {
         }
     }
     
+    /// Returns constant context for node
+    private func constantContext(for node: Node?) -> PageflowSuggestionContext? {
+        guard let node else { return nil }
+        
+        switch node.nodeType {
+        case "constant":
+            return .constant
+            
+        default:
+            return nil
+        }
+    }
+    
+    /// Returns parent block for node
     private func parentBlock(of node: Node) -> String? {
         guard let parent = node.parent,
               let parentType = parent.nodeType
@@ -344,6 +385,7 @@ extension PageflowSuggestionDelegate {
         }
     }
     
+    /// Returns child block for node
     private func childBlock(of parent: Node) -> String? {
         for i in 0..<parent.namedChildCount {
             guard let child = parent.namedChild(at: i),
@@ -374,8 +416,7 @@ extension PageflowSuggestionDelegate {
 
 private extension Node {
     
-    // MARK: - Internal Methods
-    
+    /// Returns child of node
     func descendant(for location: Int, in textView: TextViewController, subOnly: Bool = false) -> Node? {
         guard contains(location, in: textView) else {
             return nil
@@ -394,6 +435,7 @@ private extension Node {
         return subOnly ? nil : self
     }
     
+    /// Returns named child of node
     func namedDescendant(for location: Int, in textView: TextViewController, subOnly: Bool = false) -> Node? {
         guard contains(location, in: textView) else {
             return nil
@@ -412,8 +454,7 @@ private extension Node {
         return subOnly ? nil : self
     }
     
-    // MARK: - Support Methods
-    
+    /// Returns node containing location
     func contains(_ location: Int, in textView: TextViewController) -> Bool {
         let byteOffset = textView.byteOffsetForLocation(location)
         return byteRange.contains(byteOffset) || byteRange.upperBound == byteOffset
@@ -422,8 +463,7 @@ private extension Node {
 
 private extension TextViewController {
     
-    // MARK: - Internal Methods
-    
+    /// Returns byte offset for location in text
     func byteOffsetForLocation(_ location: Int) -> UInt32 {
         let index = String.Index(utf16Offset: location, in: text)
         let offset = text.utf16.distance(from: text.utf16.startIndex, to: index)
@@ -435,6 +475,7 @@ private extension TextViewController {
 
 extension PageflowSuggestionDelegate {
     
+    /// Debug tree
     private func debug(tree: Tree) {
         print(String(repeating: "=", count: 60))
         print("PARSED TREE")
@@ -447,6 +488,7 @@ extension PageflowSuggestionDelegate {
         print(String(repeating: "=", count: 60))
     }
     
+    /// Debug node
     private func debug(node: Node, indent: String = "") {
         let type = node.nodeType ?? "unknown"
         let range = node.byteRange
