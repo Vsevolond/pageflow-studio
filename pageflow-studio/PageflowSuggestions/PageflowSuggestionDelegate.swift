@@ -19,8 +19,8 @@ import TreeSitter
 // MARK: - File Suggestions Provider
 
 protocol FileSuggestionsProvider: AnyObject {
-    var images: [String] { get }
-    var listings: [String] { get }
+    var images: Set<String> { get }
+    var listings: Set<String> { get }
 }
 
 // MARK: - Pageflow Suggestion Delegate

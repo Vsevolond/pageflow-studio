@@ -10,6 +10,6 @@ import Combine
 
 final class ContentViewModel: ObservableObject, FileSuggestionsProvider {
     
-    @Published var images: [String] = ["first", "some"]
-    @Published var listings: [String] = ["main", "lab1"]
+    @Published var images: Set<String> = ["first", "some"]
+    @Published var listings: Set<String> = ["main", "lab1"]
 }
