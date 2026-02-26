@@ -23,10 +23,7 @@ protocol ASTParser: AnyObject {
     
     // MARK: - Internal Methods
     
-    func parse(
-        _ tree: Tree,
-        completion: (Result<Document, ASTParseError>) -> Void
-    )
+    func parse(_ tree: Tree) throws(ASTParseError) -> Document
 }
 
 // MARK: - AST Parser Implementation
@@ -45,22 +42,12 @@ final class ASTParserImpl: ASTParser, Sendable {
     
     // MARK: - Internal Methods
     
-    func parse(
-        _ tree: Tree,
-        completion: (Result<Document, ASTParseError>) -> Void
-    ) {
+    func parse(_ tree: Tree) throws(ASTParseError) -> Document {
         guard let root = tree.rootNode else {
-            completion(.success(.blank))
-            return
+            return .blank
         }
         
-        do {
-            let document = try document(from: root)
-            completion(.success(document))
-            
-        } catch {
-            completion(.failure(error))
-        }
+        return try document(from: root)
     }
 }
 

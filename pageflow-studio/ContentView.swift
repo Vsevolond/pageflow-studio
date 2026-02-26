@@ -23,13 +23,16 @@ struct ContentView: View {
     
     @StateObject private var model: ContentViewModel
     @StateObject private var suggestions: PageflowSuggestionDelegate
+    @StateObject private var coordinator: PageflowParseCoordinator
     
     init() {
         let model = ContentViewModel()
         let suggestions = PageflowSuggestionDelegate(provider: model)
+        let coordinator = PageflowParseCoordinator(provider: model)
         
         self._model = StateObject(wrappedValue: model)
         self._suggestions = StateObject(wrappedValue: suggestions)
+        self._coordinator = StateObject(wrappedValue: coordinator)
     }
     
     var body: some View {
@@ -45,6 +48,7 @@ struct ContentView: View {
                 behavior: .init(indentOption: indentOption)
             ),
             state: $editorState,
+            coordinators: [coordinator],
             completionDelegate: suggestions
         )
         .onAppear {
@@ -53,6 +57,9 @@ struct ContentView: View {
             case .dark: theme = .dark
             @unknown default: theme = .light
             }
+        }
+        .onChange(of: coordinator.result) {
+            print(coordinator.result)
         }
     }
 }

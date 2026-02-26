@@ -6,6 +6,7 @@
 //
 
 import SwiftTreeSitter
+import PageflowSourceEditor
 
 extension ASTParserImpl {
     
@@ -15,8 +16,8 @@ extension ASTParserImpl {
     func mulOperation(
         from node: Node
     ) throws(ASTParseError) -> MulOperation {
-        guard let text = node.sExpressionString,
-              let value = MulOperation.Value(rawValue: text)
+        guard let string = controller.textView.substring(from: node.range),
+              let value = MulOperation.Value(rawValue: string)
         else {
             throw .unknown(range: node.range)
         }

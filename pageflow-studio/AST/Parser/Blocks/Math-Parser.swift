@@ -33,7 +33,7 @@ extension ASTParserImpl {
         
         var modifiers: [MathBlock.Modifier] = []
         
-        for index in 0..<node.namedChildCount {
+        for index in 1..<node.namedChildCount {
             guard let child = node.namedChild(at: index) else {
                 throw .unknown(range: node.range)
             }
