@@ -381,12 +381,6 @@ extension PageflowSuggestionDelegate {
         case "font_style_type":
             return .value(.fontStyle)
             
-        case "code_language_type":
-            return .value(.codeLanguage)
-            
-        case "code_style_type":
-            return .value(.codeStyle)
-            
         case "code_frame_type":
             return .value(.codeFrame)
             

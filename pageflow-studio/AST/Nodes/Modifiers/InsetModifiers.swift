@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import SwiftUI
 
 enum InsetModifiers: ASTNode {
     
@@ -51,5 +51,18 @@ struct MarginModifier: ASTNode {
         guard value.isMeasured else {
             throw .invalid(expression: value)
         }
+    }
+}
+
+// MARK: - Extensions
+
+extension MarginModifier {
+    
+    var rawValue: CGFloat {
+        value.points
+    }
+    
+    var rawEdge: Edge.Set {
+        edge.rawValue
     }
 }

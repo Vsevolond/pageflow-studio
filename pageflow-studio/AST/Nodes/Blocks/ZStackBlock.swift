@@ -5,7 +5,8 @@
 //  Created by Vsevolod Donchenko on 09.12.2025.
 //
 
-import Foundation
+import AppKit
+import SwiftUI
 
 struct ZStackBlock: ASTNode {
     
@@ -108,5 +109,134 @@ extension ZStackBlock {
                 try zAlignmentModifier.validate(with: storage)
             }
         }
+    }
+}
+
+extension ZStackBlock {
+    
+    // MARK: - Type Entities
+    
+    struct Parameters {
+        var width: CGFloat?
+        var height: CGFloat?
+        var padding: EdgeInsets
+        var insets: EdgeInsets
+        var offset: CGSize
+        var spacing: CGFloat
+        var enumerated: Bool
+        var caption: TextContent?
+        var subfigure: Bool
+        var alignment: Alignment
+        var stackAlignment: Alignment
+        var backgroundColor: NSColor
+        
+        init(
+            width: CGFloat? = nil,
+            height: CGFloat? = nil,
+            padding: EdgeInsets = .zero,
+            insets: EdgeInsets = .zero,
+            offset: CGSize = .zero,
+            spacing: CGFloat = 10,
+            enumerated: Bool = false,
+            caption: TextContent? = nil,
+            subfigure: Bool = false,
+            alignment: Alignment = .center,
+            stackAlignment: Alignment = .center,
+            backgroundColor: NSColor = .clear
+        ) {
+            self.width = width
+            self.height = height
+            self.padding = padding
+            self.insets = insets
+            self.offset = offset
+            self.spacing = spacing
+            self.enumerated = enumerated
+            self.caption = caption
+            self.subfigure = subfigure
+            self.alignment = alignment
+            self.stackAlignment = stackAlignment
+            self.backgroundColor = backgroundColor
+        }
+    }
+    
+    // MARK: - Internal Properties
+    
+    var parameters: Parameters {
+        var parameters = Parameters()
+        
+        for modifier in modifiers {
+            switch modifier {
+            case .frame(let frameModifiers):
+                switch frameModifiers {
+                case .width(let widthModifier):
+                    parameters.width = widthModifier.rawValue
+                    
+                case .height(let heightModifier):
+                    parameters.height = heightModifier.rawValue
+                }
+                
+            case .layout(let layoutModifiers):
+                switch layoutModifiers {
+                case .padding(let paddingModifier):
+                    parameters.padding.set(
+                        paddingModifier.rawValue,
+                        for: paddingModifier.rawEdge
+                    )
+                    
+                case .offset(let offsetModifier):
+                    parameters.offset.set(
+                        offsetModifier.rawValue,
+                        for: offsetModifier.rawAxis
+                    )
+                }
+                
+            case .inset(let insetModifiers):
+                switch insetModifiers {
+                case .margin(let marginModifier):
+                    parameters.insets.set(
+                        marginModifier.rawValue,
+                        for: marginModifier.rawEdge
+                    )
+                }
+                
+            case .container(let containerModifiers):
+                switch containerModifiers {
+                case .spacing(let spacingModifier):
+                    parameters.spacing = spacingModifier.rawValue
+                }
+                
+            case .figure(let figureModifiers):
+                switch figureModifiers {
+                case .enumerated(let enumeratedModifier):
+                    parameters.enumerated = enumeratedModifier.value
+                    
+                case .caption(let captionModifier):
+                    parameters.caption = captionModifier.value
+                }
+                
+            case .subfigure(let subfigureModifiers):
+                switch subfigureModifiers {
+                case .subfigure(let subfigureModifier):
+                    parameters.subfigure = subfigureModifier.value
+                }
+                
+            case .alignment(let alignmentModifiers):
+                switch alignmentModifiers {
+                case .layout(let layoutModifier):
+                    parameters.alignment = layoutModifier.rawValue
+                }
+                
+            case .background(let backgroundModifiers):
+                switch backgroundModifiers {
+                case .background(let backgroundModifier):
+                    parameters.backgroundColor = backgroundModifier.rawValue
+                }
+                
+            case .stackAlignment(let zAlignmentModifier):
+                parameters.stackAlignment = zAlignmentModifier.rawValue
+            }
+        }
+        
+        return parameters
     }
 }

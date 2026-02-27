@@ -51,3 +51,12 @@ struct SpacingModifier: ASTNode {
         }
     }
 }
+
+// MARK: - Extensions
+
+extension SpacingModifier {
+    
+    var rawValue: CGFloat {
+        value.points
+    }
+}

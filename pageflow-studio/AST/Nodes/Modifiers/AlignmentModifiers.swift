@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import SwiftUI
 
 enum AlignmentModifiers: ASTNode {
     
@@ -45,5 +45,14 @@ struct LayoutModifier: ASTNode {
     
     func validate(with storage: ASTStorage) throws(ASTError) {
         try value.validate(with: storage)
+    }
+}
+
+// MARK: - Extensions
+
+extension LayoutModifier {
+    
+    var rawValue: Alignment {
+        value.rawValue
     }
 }

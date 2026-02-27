@@ -68,3 +68,19 @@ struct FontStyleModifier: ASTNode {
         try value.validate(with: storage)
     }
 }
+
+// MARK: - Extensions
+
+extension FontSizeModifier {
+    
+    var rawValue: CGFloat {
+        value.rawValue
+    }
+}
+
+extension FontStyleModifier {
+    
+    var rawValue: FontStyleType.Value {
+        value.value
+    }
+}

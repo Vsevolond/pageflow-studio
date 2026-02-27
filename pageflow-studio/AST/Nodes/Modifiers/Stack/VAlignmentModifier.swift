@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 09.12.2025.
 //
 
-import Foundation
+import SwiftUI
 
 struct VAlignmentModifier: ASTNode {
     
@@ -18,5 +18,14 @@ struct VAlignmentModifier: ASTNode {
     
     func validate(with storage: ASTStorage) throws(ASTError) {
         try value.validate(with: storage)
+    }
+}
+
+// MARK: - Extensions
+
+extension VAlignmentModifier {
+    
+    var rawValue: HorizontalAlignment {
+        value.rawValue
     }
 }

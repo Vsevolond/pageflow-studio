@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import SwiftUI
 
 struct EdgeType: ASTNode {
     
@@ -24,5 +24,29 @@ struct EdgeType: ASTNode {
     
     func validate(with storage: ASTStorage) throws(ASTError) {
         /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension EdgeType {
+    
+    var rawValue: Edge.Set {
+        switch value {
+        case .top:
+            return .top
+            
+        case .bottom:
+            return .bottom
+            
+        case .leading:
+            return .leading
+            
+        case .trailing:
+            return .trailing
+            
+        case .all:
+            return .all
+        }
     }
 }

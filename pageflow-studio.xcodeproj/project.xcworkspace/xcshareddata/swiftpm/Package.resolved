@@ -1,5 +1,5 @@
 {
-  "originHash" : "dfca6c7857f71828e0cf67d0a2bffd0c39e93d9ff3b2da79ebfaba2787fb647a",
+  "originHash" : "2da398f70f2e4bdab5d2ad1908a3596e421475722efc6f8cc21490f43fd0d5c3",
   "pins" : [
     {
       "identity" : "codeeditsymbols",
@@ -20,12 +20,21 @@
       }
     },
     {
+      "identity" : "highlighterswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smittytone/HighlighterSwift.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6c51eb35908f4876a9a8d444a0c800632351d0ba"
+      }
+    },
+    {
       "identity" : "pageflowlanguage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Vsevolond/PageflowLanguage.git",
       "state" : {
-        "revision" : "162f9b11a4b7dff674ea3dcb7f3f457c987e000c",
-        "version" : "0.2.5"
+        "revision" : "2ec90df81cb917a84997b32b7bb4d9a17348fced",
+        "version" : "0.2.6"
       }
     },
     {
@@ -33,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Vsevolond/PageflowSourceEditor.git",
       "state" : {
-        "revision" : "302fe41b38f36dd3bd6d9174b195f71a6f842eda",
-        "version" : "0.2.7"
+        "revision" : "766e2c025599f454f37b888cdea72477eeb4f029",
+        "version" : "0.2.8"
       }
     },
     {
@@ -62,6 +71,15 @@
       "state" : {
         "revision" : "a3877065a7d72ee40e1fa64e13b9e33e846c667c",
         "version" : "0.63.1"
+      }
+    },
+    {
+      "identity" : "swiftmath",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mgriebling/SwiftMath.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "48ff188ba118c37d024551238041113560ab09b9"
       }
     },
     {

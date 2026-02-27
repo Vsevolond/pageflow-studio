@@ -6,6 +6,7 @@
 //
 
 import SwiftTreeSitter
+import CodeEditTextView
 
 extension ASTParserImpl {
     
@@ -29,28 +30,46 @@ extension ASTParserImpl {
             throw .unknown(range: child.range)
         }
         
-        let thickness = try expression(from: child)
-        
-        var modifiers: [DividerElement.Modifier] = []
-        
-        for index in 1..<node.namedChildCount {
-            guard let child = node.namedChild(at: index) else {
-                throw .unknown(range: node.range)
-            }
+        if child.range.isEmpty {
+            let modifiers = try modifiers(from: node)
             
-            guard child.nodeType == "divider_modifier" else {
-                throw .unknown(range: child.range)
-            }
+            return DividerElement(
+                modifiers: modifiers,
+                range: node.range
+            )
             
-            let modifier = try dividerModifier(from: child)
-            modifiers.append(modifier)
+        } else {
+            let thickness = try expression(from: child)
+            let modifiers = try modifiers(from: node)
+            
+            return DividerElement(
+                thickness: thickness,
+                modifiers: modifiers,
+                range: node.range
+            )
+            
         }
         
-        return DividerElement(
-            thickness: thickness,
-            modifiers: modifiers,
-            range: node.range
-        )
+        func modifiers(
+            from node: Node
+        ) throws(ASTParseError) -> [DividerElement.Modifier] {
+            var modifiers: [DividerElement.Modifier] = []
+            
+            for index in 1..<node.namedChildCount {
+                guard let child = node.namedChild(at: index) else {
+                    throw .unknown(range: node.range)
+                }
+                
+                guard child.nodeType == "divider_modifier" else {
+                    throw .unknown(range: child.range)
+                }
+                
+                let modifier = try dividerModifier(from: child)
+                modifiers.append(modifier)
+            }
+            
+            return modifiers
+        }
     }
     
 //

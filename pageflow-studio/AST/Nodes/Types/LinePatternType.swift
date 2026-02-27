@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import AppKit
 
 struct LinePatternType: ASTNode {
     
@@ -24,5 +24,29 @@ struct LinePatternType: ASTNode {
     
     func validate(with storage: ASTStorage) throws(ASTError) {
         /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension LinePatternType {
+    
+    var rawValue: NSUnderlineStyle {
+        switch value {
+        case .dash:
+            return .patternDash
+            
+        case .dashDot:
+            return .patternDashDot
+            
+        case .dashDotDot:
+            return .patternDashDotDot
+            
+        case .dot:
+            return .patternDot
+            
+        case .solid:
+            return .single
+        }
     }
 }

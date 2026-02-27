@@ -11,7 +11,7 @@ struct TextFragment: ASTNode {
     
     // MARK: - Type Entities
     
-    enum Value: Equatable {
+    enum Value: Equatable, Hashable {
         case rawText(String)
         case rawMath(MathContent)
         case newline
@@ -30,5 +30,29 @@ struct TextFragment: ASTNode {
         }
         
         try mathContent.validate(with: storage)
+    }
+}
+
+// MARK: - Extensions
+
+extension Array where Element == TextFragment {
+    
+    var rawValue: [TextMathView.Fragment] {
+        var fragments: [TextMathView.Fragment] = []
+        
+        for fragment in self {
+            switch fragment.value {
+            case .rawText(let string):
+                fragments.append(.text(string))
+                
+            case .rawMath(let content):
+                fragments.append(contentsOf: content.fragments.rawValue)
+                
+            case .newline:
+                fragments.append(.text("\n"))
+            }
+        }
+        
+        return fragments
     }
 }

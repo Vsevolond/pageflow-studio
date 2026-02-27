@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import AppKit
 
 enum TextLayoutModifiers: ASTNode {
     
@@ -70,5 +70,30 @@ struct LineSpacingModifier: ASTNode {
         guard value.isMeasured else {
             throw .invalid(expression: value)
         }
+    }
+}
+
+// MARK: - Extensions
+
+extension TextAlignmentModifier {
+    
+    var rawValue: NSTextAlignment {
+        switch value.value {
+        case .center:
+            return .center
+            
+        case .leading:
+            return .left
+            
+        case .trailing:
+            return .right
+        }
+    }
+}
+
+extension LineSpacingModifier {
+    
+    var rawValue: CGFloat {
+        value.points
     }
 }

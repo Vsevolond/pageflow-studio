@@ -59,7 +59,7 @@ struct CodeLanguageModifier: ASTNode {
     
     // MARK: - Internal Properties
     
-    let value: CodeLanguageType
+    let value: Identifier
     let range: NSRange
     
     // MARK: - Internal Methods
@@ -73,7 +73,7 @@ struct CodeStyleModifier: ASTNode {
     
     // MARK: - Internal Properties
     
-    let value: CodeStyleType
+    let value: Identifier
     let range: NSRange
     
     // MARK: - Internal Methods
@@ -108,5 +108,21 @@ struct CodeNumbersModifier: ASTNode {
     
     func validate(with storage: ASTStorage) throws(ASTError) {
         /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension CodeLanguageModifier {
+    
+    var rawValue: String {
+        value.value
+    }
+}
+
+extension CodeStyleModifier {
+    
+    var rawValue: String {
+        value.value
     }
 }

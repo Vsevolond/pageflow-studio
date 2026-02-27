@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 08.12.2025.
 //
 
-import Foundation
+import SwiftUI
 
 struct NewPageBlock<Content: ASTNode>: ASTNode {
     
@@ -59,5 +59,56 @@ extension NewPageBlock {
                 try insetModifiers.validate(with: storage)
             }
         }
+    }
+}
+
+extension NewPageBlock {
+    
+    // MARK: - Type Entities
+    
+    struct Parameters {
+        var header: TextContent?
+        var footer: TextContent?
+        var insets: EdgeInsets
+        
+        init(
+            header: TextContent? = nil,
+            footer: TextContent? = nil,
+            insets: EdgeInsets = .zero
+        ) {
+            self.header = header
+            self.footer = footer
+            self.insets = insets
+        }
+    }
+    
+    // MARK: - Internal Properties
+    
+    var parameters: Parameters {
+        var parameters = Parameters()
+        
+        for modifier in modifiers {
+            switch modifier {
+            case .page(let pageModifiers):
+                switch pageModifiers {
+                case .header(let headerModifier):
+                    parameters.header = headerModifier.value
+                    
+                case .footer(let footerModifier):
+                    parameters.footer = footerModifier.value
+                }
+                
+            case .inset(let insetModifiers):
+                switch insetModifiers {
+                case .margin(let marginModifier):
+                    parameters.insets.set(
+                        marginModifier.rawValue,
+                        for: marginModifier.rawEdge
+                    )
+                }
+            }
+        }
+        
+        return parameters
     }
 }

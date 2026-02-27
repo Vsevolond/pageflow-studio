@@ -36,7 +36,7 @@ enum PageflowSuggestionContext: Equatable {
         case color
         case linePattern
         case fontSize, fontStyle
-        case codeLanguage, codeStyle, codeFrame
+        case codeFrame
     }
     
     // MARK: - File Type

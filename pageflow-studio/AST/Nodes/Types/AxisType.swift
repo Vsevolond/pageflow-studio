@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import SwiftUI
 
 struct AxisType: ASTNode {
     
@@ -24,5 +24,20 @@ struct AxisType: ASTNode {
     
     func validate(with storage: ASTStorage) throws(ASTError) {
         /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension AxisType {
+    
+    var rawValue: Axis {
+        switch value {
+        case .vertical:
+            return .vertical
+            
+        case .horizontal:
+            return .horizontal
+        }
     }
 }

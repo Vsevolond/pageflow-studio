@@ -6,6 +6,7 @@
 //
 
 import SwiftTreeSitter
+import CodeEditTextView
 
 extension ASTParserImpl {
     
@@ -28,11 +29,16 @@ extension ASTParserImpl {
             throw .unknown(range: child.range)
         }
         
-        let expression = try expression(from: child)
-        
-        return SpacerElement(
-            value: expression,
-            range: child.range
-        )
+        if child.range.isEmpty {
+            return SpacerElement(range: node.range)
+            
+        } else {
+            let expression = try expression(from: child)
+            
+            return SpacerElement(
+                value: expression,
+                range: child.range
+            )
+        }
     }
 }

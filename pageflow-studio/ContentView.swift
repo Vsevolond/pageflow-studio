@@ -84,6 +84,7 @@ extension EditorTheme {
         textSeparator: Attribute(color: .init(hex: "367AAB")),      // cyan
         textDelimiter: Attribute(color: .init(hex: "C13E2A")),      // red
         mathDelimiter: Attribute(color: .init(hex: "4F7E86")),      // light green
+        identifiers: Attribute(color: .init(hex: "31565B")),        // green
         invalids: Attribute(color: .init(hex: "262626"))            // black
     )
     
@@ -106,6 +107,7 @@ extension EditorTheme {
         textSeparator: Attribute(color: .init(hex: "69AEC8")),      // blue
         textDelimiter: Attribute(color: .init(hex: "EF8876")),      // red
         mathDelimiter: Attribute(color: .init(hex: "89C0B3")),      // green
+        identifiers: Attribute(color: .init(hex: "BBF0E4")),        // light green
         invalids: Attribute(color: .init(hex: "DFDFE0"))            // white
     )
 }

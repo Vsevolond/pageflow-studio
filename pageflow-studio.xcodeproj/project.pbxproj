@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D334BE312F438ABD00A677C3 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D334BE302F438ABD00A677C3 /* PageflowSourceEditor */; };
+		D33A35142F50F17A0097AF38 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D33A35132F50F17A0097AF38 /* PageflowSourceEditor */; };
+		D33A35202F50FC1A0097AF38 /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = D33A351F2F50FC1A0097AF38 /* Highlighter */; };
 		D368C8F72F41E5F1001E75BA /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D368C8F62F41E5F1001E75BA /* PageflowSourceEditor */; };
 		D3DEA50C2F4C85D600D0ED10 /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D3DEA50B2F4C85D600D0ED10 /* PageflowSourceEditor */; };
-		D3FC62CB2F4F5EE700587AFA /* PageflowSourceEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D3FC62CA2F4F5EE700587AFA /* PageflowSourceEditor */; };
+		D3FC642C2F5078A800587AFA /* SwiftMath in Frameworks */ = {isa = PBXBuildFile; productRef = D3FC642B2F5078A800587AFA /* SwiftMath */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,9 +32,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D33A35142F50F17A0097AF38 /* PageflowSourceEditor in Frameworks */,
 				D368C8F72F41E5F1001E75BA /* PageflowSourceEditor in Frameworks */,
-				D3FC62CB2F4F5EE700587AFA /* PageflowSourceEditor in Frameworks */,
+				D3FC642C2F5078A800587AFA /* SwiftMath in Frameworks */,
 				D334BE312F438ABD00A677C3 /* PageflowSourceEditor in Frameworks */,
+				D33A35202F50FC1A0097AF38 /* Highlighter in Frameworks */,
 				D3DEA50C2F4C85D600D0ED10 /* PageflowSourceEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,7 +83,9 @@
 				D368C8F62F41E5F1001E75BA /* PageflowSourceEditor */,
 				D334BE302F438ABD00A677C3 /* PageflowSourceEditor */,
 				D3DEA50B2F4C85D600D0ED10 /* PageflowSourceEditor */,
-				D3FC62CA2F4F5EE700587AFA /* PageflowSourceEditor */,
+				D3FC642B2F5078A800587AFA /* SwiftMath */,
+				D33A35132F50F17A0097AF38 /* PageflowSourceEditor */,
+				D33A351F2F50FC1A0097AF38 /* Highlighter */,
 			);
 			productName = "pageflow-studio";
 			productReference = D3A7E3F92EC391D200BBFACE /* pageflow-studio.app */;
@@ -110,7 +116,9 @@
 			mainGroup = D3A7E3F02EC391D100BBFACE;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				D3FC62C92F4F5EE700587AFA /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */,
+				D3FC642A2F5078A800587AFA /* XCRemoteSwiftPackageReference "SwiftMath" */,
+				D33A35122F50F17A0097AF38 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */,
+				D33A351E2F50FC1A0097AF38 /* XCRemoteSwiftPackageReference "HighlighterSwift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D3A7E3FA2EC391D200BBFACE /* Products */;
@@ -357,12 +365,28 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D3FC62C92F4F5EE700587AFA /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */ = {
+		D33A35122F50F17A0097AF38 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Vsevolond/PageflowSourceEditor.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.7;
+				minimumVersion = 0.2.8;
+			};
+		};
+		D33A351E2F50FC1A0097AF38 /* XCRemoteSwiftPackageReference "HighlighterSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/smittytone/HighlighterSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D3FC642A2F5078A800587AFA /* XCRemoteSwiftPackageReference "SwiftMath" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mgriebling/SwiftMath.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -372,6 +396,16 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = PageflowSourceEditor;
 		};
+		D33A35132F50F17A0097AF38 /* PageflowSourceEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D33A35122F50F17A0097AF38 /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */;
+			productName = PageflowSourceEditor;
+		};
+		D33A351F2F50FC1A0097AF38 /* Highlighter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D33A351E2F50FC1A0097AF38 /* XCRemoteSwiftPackageReference "HighlighterSwift" */;
+			productName = Highlighter;
+		};
 		D368C8F62F41E5F1001E75BA /* PageflowSourceEditor */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PageflowSourceEditor;
@@ -380,10 +414,10 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = PageflowSourceEditor;
 		};
-		D3FC62CA2F4F5EE700587AFA /* PageflowSourceEditor */ = {
+		D3FC642B2F5078A800587AFA /* SwiftMath */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D3FC62C92F4F5EE700587AFA /* XCRemoteSwiftPackageReference "PageflowSourceEditor" */;
-			productName = PageflowSourceEditor;
+			package = D3FC642A2F5078A800587AFA /* XCRemoteSwiftPackageReference "SwiftMath" */;
+			productName = SwiftMath;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

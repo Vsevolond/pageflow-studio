@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import AppKit
 
 enum TextEditingModifiers: ASTNode {
     
@@ -70,5 +70,29 @@ struct StrikethroughModifier: ASTNode {
     func validate(with storage: ASTStorage) throws(ASTError) {
         try line.validate(with: storage)
         try color.validate(with: storage)
+    }
+}
+
+// MARK: - Extensions
+
+extension UnderlineModifier {
+    
+    var rawLine: NSUnderlineStyle {
+        line.rawValue
+    }
+    
+    var rawColor: NSColor {
+        color.rawValue
+    }
+}
+
+extension StrikethroughModifier {
+    
+    var rawLine: NSUnderlineStyle {
+        line.rawValue
+    }
+    
+    var rawColor: NSColor {
+        color.rawValue
     }
 }

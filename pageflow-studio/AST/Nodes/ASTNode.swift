@@ -10,7 +10,7 @@ import Rearrange
 
 // MARK: - AST Node
 
-protocol ASTNode: Validatable, Equatable {
+protocol ASTNode: Validatable, Equatable, Hashable {
     
     // MARK: - Internal Properties
     

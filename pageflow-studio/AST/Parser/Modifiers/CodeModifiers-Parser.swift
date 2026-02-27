@@ -50,7 +50,7 @@ extension ASTParserImpl {
 //    code_language_modifier: $ => seq(
 //        token.immediate("language"),
 //        "(",
-//        $.code_language_type,
+//        $.identifier,
 //        ")"
 //    )
 //    
@@ -62,8 +62,8 @@ extension ASTParserImpl {
         }
         
         switch child.nodeType {
-        case "code_language_type":
-            let value = try codeLanguageType(from: child)
+        case "identifier":
+            let value = try identifier(from: child)
             
             return CodeLanguageModifier(
                 value: value,
@@ -79,7 +79,7 @@ extension ASTParserImpl {
 //    code_style_modifier: $ => seq(
 //        token.immediate("style"),
 //        "(",
-//        $.code_style_type,
+//        $.identifier,
 //        ")"
 //    )
 //    
@@ -91,8 +91,8 @@ extension ASTParserImpl {
         }
         
         switch child.nodeType {
-        case "code_style_type":
-            let value = try codeStyleType(from: child)
+        case "identifier":
+            let value = try identifier(from: child)
             
             return CodeStyleModifier(
                 value: value,

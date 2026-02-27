@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import AppKit
 
 enum ForegroundModifiers: ASTNode {
     
@@ -45,5 +45,14 @@ struct TintModifier: ASTNode {
     
     func validate(with storage: ASTStorage) throws(ASTError) {
         try value.validate(with: storage)
+    }
+}
+
+// MARK: - Extensions
+
+extension TintModifier {
+    
+    var rawValue: NSColor {
+        value.rawValue
     }
 }

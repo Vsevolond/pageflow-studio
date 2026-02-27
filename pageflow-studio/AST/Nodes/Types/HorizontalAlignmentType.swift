@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import SwiftUI
 
 struct HorizontalAlignmentType: ASTNode {
     
@@ -24,5 +24,23 @@ struct HorizontalAlignmentType: ASTNode {
     
     func validate(with storage: ASTStorage) throws(ASTError) {
         /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension HorizontalAlignmentType {
+    
+    var rawValue: HorizontalAlignment {
+        switch value {
+        case .center:
+            return .center
+            
+        case .leading:
+            return .leading
+            
+        case .trailing:
+            return .trailing
+        }
     }
 }

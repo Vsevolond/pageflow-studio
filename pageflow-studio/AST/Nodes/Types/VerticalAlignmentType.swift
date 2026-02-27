@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import SwiftUI
 
 struct VerticalAlignmentType: ASTNode {
     
@@ -24,5 +24,23 @@ struct VerticalAlignmentType: ASTNode {
     
     func validate(with storage: ASTStorage) throws(ASTError) {
         /// not required
+    }
+}
+
+// MARK: - Extensions
+
+extension VerticalAlignmentType {
+    
+    var rawValue: VerticalAlignment {
+        switch value {
+        case .center:
+            return .center
+            
+        case .top:
+            return .top
+            
+        case .bottom:
+            return .bottom
+        }
     }
 }

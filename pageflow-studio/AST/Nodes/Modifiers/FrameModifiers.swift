@@ -76,3 +76,19 @@ struct HeightModifier: ASTNode {
         }
     }
 }
+
+// MARK: - Extensions
+
+extension WidthModifier {
+    
+    var rawValue: CGFloat {
+        value.points
+    }
+}
+
+extension HeightModifier {
+    
+    var rawValue: CGFloat {
+        value.points
+    }
+}

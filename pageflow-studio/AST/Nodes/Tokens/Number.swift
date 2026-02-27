@@ -11,7 +11,7 @@ struct Number: ASTNode {
     
     // MARK: - Type Entities
     
-    enum Value: Equatable {
+    enum Value: Equatable, Hashable {
         case integer(Int)
         case decimal(Double)
     }

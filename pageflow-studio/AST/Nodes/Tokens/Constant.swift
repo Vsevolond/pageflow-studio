@@ -38,8 +38,8 @@ extension Constant: Measurable {
     
     var points: CGFloat {
         switch value {
-        case .width: 15120 / 25.4
-        case .height: 21384 / 25.4
+        case .width: 597
+        case .height: 845
         }
     }
 }

@@ -5,7 +5,8 @@
 //  Created by Vsevolod Donchenko on 09.12.2025.
 //
 
-import Foundation
+import AppKit
+import SwiftUI
 
 struct MathBlock: ASTNode {
     
@@ -101,5 +102,138 @@ extension MathBlock {
                 try backgroundModifiers.validate(with: storage)
             }
         }
+    }
+}
+
+extension MathBlock {
+    
+    // MARK: - Type Entities
+    
+    struct Parameters {
+        var textAlignment: NSTextAlignment
+        var lineSpacing: CGFloat?
+        var insets: NSEdgeInsets
+        var fontSize: CGFloat
+        var font: NSFont
+        var foregroundColor: NSColor
+        var backgroundColor: NSColor
+        
+        var width: CGFloat?
+        var height: CGFloat?
+        var alignment: Alignment
+        var padding: EdgeInsets
+        var offset: CGSize
+        
+        init(
+            width: CGFloat? = nil,
+            height: CGFloat? = nil,
+            textAlignment: NSTextAlignment = .left,
+            lineSpacing: CGFloat? = nil,
+            insets: NSEdgeInsets = .zero,
+            fontSize: CGFloat = 12,
+            font: NSFont = NSFont.latex(size: 12),
+            foregroundColor: NSColor = .black,
+            backgroundColor: NSColor = .clear,
+            alignment: Alignment = .leading,
+            padding: EdgeInsets = .zero,
+            offset: CGSize = .zero
+        ) {
+            self.width = width
+            self.height = height
+            self.textAlignment = textAlignment
+            self.lineSpacing = lineSpacing
+            self.fontSize = fontSize
+            self.font = font
+            self.foregroundColor = foregroundColor
+            self.backgroundColor = backgroundColor
+            self.alignment = alignment
+            self.padding = padding
+            self.insets = insets
+            self.offset = offset
+        }
+    }
+    
+    // MARK: - Internal Properties
+    
+    var parameters: Parameters {
+        var parameters = Parameters()
+        
+        for modifier in modifiers {
+            switch modifier {
+            case .textLayout(let textLayoutModifiers):
+                switch textLayoutModifiers {
+                case .textAlignment(let textAlignmentModifier):
+                    parameters.textAlignment = textAlignmentModifier.rawValue
+                    
+                case .lineSpacing(let lineSpacingModifier):
+                    parameters.lineSpacing = lineSpacingModifier.rawValue
+                }
+                
+            case .font(let fontModifiers):
+                switch fontModifiers {
+                case .fontSize(let fontSizeModifier):
+                    parameters.fontSize = fontSizeModifier.rawValue
+                    
+                case .fontStyle(let fontStyleModifier):
+                    parameters.font = NSFont.latex(
+                        size: parameters.fontSize,
+                        style: fontStyleModifier.rawValue
+                    )
+                }
+                
+            case .frame(let frameModifiers):
+                switch frameModifiers {
+                case .width(let widthModifier):
+                    parameters.width = widthModifier.rawValue
+                    
+                case .height(let heightModifier):
+                    parameters.height = heightModifier.rawValue
+                }
+                
+            case .layout(let layoutModifiers):
+                switch layoutModifiers {
+                case .padding(let paddingModifier):
+                    parameters.padding.set(
+                        paddingModifier.rawValue,
+                        for: paddingModifier.rawEdge
+                    )
+                    
+                case .offset(let offsetModifier):
+                    parameters.offset.set(
+                        offsetModifier.rawValue,
+                        for: offsetModifier.rawAxis
+                    )
+                }
+                
+            case .alignment(let alignmentModifiers):
+                switch alignmentModifiers {
+                case .layout(let layoutModifier):
+                    parameters.alignment = layoutModifier.rawValue
+                }
+                
+            case .inset(let insetModifiers):
+                switch insetModifiers {
+                case .margin(let marginModifier):
+                    parameters.insets.set(
+                        marginModifier.rawValue,
+                        for: marginModifier.rawEdge
+                    )
+                }
+                
+            case .foreground(let foregroundModifiers):
+                switch foregroundModifiers {
+                case .tint(let tintModifier):
+                    parameters.foregroundColor = tintModifier.rawValue
+                }
+                
+            case .background(let backgroundModifiers):
+                switch backgroundModifiers {
+                case .background(let backgroundModifier):
+                    parameters.backgroundColor = backgroundModifier.rawValue
+                }
+            }
+        }
+        
+        return parameters
     }
 }

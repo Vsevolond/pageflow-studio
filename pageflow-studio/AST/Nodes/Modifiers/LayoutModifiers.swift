@@ -5,7 +5,7 @@
 //  Created by Vsevolod Donchenko on 07.12.2025.
 //
 
-import Foundation
+import SwiftUI
 
 enum LayoutModifiers: ASTNode {
     
@@ -78,5 +78,29 @@ struct OffsetModifier: ASTNode {
         guard value.isMeasured else {
             throw .invalid(expression: value)
         }
+    }
+}
+
+// MARK: - Extensions
+
+extension PaddingModifier {
+    
+    var rawValue: CGFloat {
+        value.points
+    }
+    
+    var rawEdge: Edge.Set {
+        edge.rawValue
+    }
+}
+
+extension OffsetModifier {
+    
+    var rawValue: CGFloat {
+        value.points
+    }
+    
+    var rawAxis: Axis {
+        axis.rawValue
     }
 }
