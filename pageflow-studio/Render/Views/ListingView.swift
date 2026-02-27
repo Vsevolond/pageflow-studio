@@ -288,15 +288,14 @@ final class CodeHighlighter {
 // MARK: - Helper Views
 
 struct TextViewWrapper: NSViewRepresentable {
-    
-    // MARK: - Internal Properties
-    
     let attributedString: NSAttributedString
     let font: NSFont
     let onHeightChange: (CGFloat) -> Void
-    
-    // MARK: - Internal Methods
-    
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onHeightChange: onHeightChange, attributedString: attributedString)
+    }
+
     func makeNSView(context: Context) -> NSTextView {
         let textView = NSTextView()
         textView.isEditable = false
@@ -307,26 +306,58 @@ struct TextViewWrapper: NSViewRepresentable {
         textView.isVerticallyResizable = true
         textView.isHorizontallyResizable = false
         textView.autoresizingMask = [.width]
-        
+
+        textView.textStorage?.setAttributedString(attributedString)
+        context.coordinator.textView = textView
+
+        NotificationCenter.default.addObserver(
+            context.coordinator,
+            selector: #selector(Coordinator.frameDidChange),
+            name: NSView.frameDidChangeNotification,
+            object: textView
+        )
+
         return textView
     }
-    
+
     func updateNSView(_ nsView: NSTextView, context: Context) {
-        guard let textStorage = nsView.textStorage,
-              let textContainer = nsView.textContainer,
-              let layoutManager = nsView.layoutManager
-        else {
-            return
+        if nsView.textStorage?.string != attributedString.string {
+            nsView.textStorage?.setAttributedString(attributedString)
+            context.coordinator.attributedString = attributedString
+            context.coordinator.updateHeight()
         }
-        
-        textStorage.setAttributedString(attributedString)
-        layoutManager.ensureLayout(for: textContainer)
-        
-        DispatchQueue.main.async {
+    }
+
+    class Coordinator {
+        let onHeightChange: (CGFloat) -> Void
+        var attributedString: NSAttributedString
+        weak var textView: NSTextView?
+
+        init(onHeightChange: @escaping (CGFloat) -> Void, attributedString: NSAttributedString) {
+            self.onHeightChange = onHeightChange
+            self.attributedString = attributedString
+        }
+
+        @objc func frameDidChange(_ notification: Notification) {
+            updateHeight()
+        }
+
+        func updateHeight() {
+            guard let textView = textView,
+                  let layoutManager = textView.layoutManager,
+                  let textContainer = textView.textContainer else { return }
+
+            let width = textView.bounds.width
+            guard width > 0 else { return }
+
+            textContainer.containerSize = CGSize(width: width, height: .greatestFiniteMagnitude)
+            layoutManager.ensureLayout(for: textContainer)
             let usedRect = layoutManager.usedRect(for: textContainer)
-            
-            let height = usedRect.height
-            self.onHeightChange(height)
+            onHeightChange(usedRect.height)
+        }
+
+        deinit {
+            NotificationCenter.default.removeObserver(self)
         }
     }
 }

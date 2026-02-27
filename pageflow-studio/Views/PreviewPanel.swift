@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+internal import UniformTypeIdentifiers
 
 struct PreviewPanel: View {
     @ObservedObject var viewModel: EditorViewModel
@@ -17,6 +18,12 @@ struct PreviewPanel: View {
                     .font(.headline)
                 
                 Spacer()
+                
+                Button(action: exportPDF) {
+                    Image(systemName: "square.and.arrow.up")
+                }
+                .buttonStyle(.borderless)
+                .disabled(viewModel.renderedPages.isEmpty)
                 
                 Text("\(viewModel.renderedPages.count) pages")
                     .font(.caption)
@@ -39,6 +46,17 @@ struct PreviewPanel: View {
             } else {
                 VerticalTabView(pages: viewModel.renderedPages)
             }
+        }
+    }
+    
+    private func exportPDF() {
+        let savePanel = NSSavePanel()
+        savePanel.allowedContentTypes = [.pdf]
+        savePanel.nameFieldStringValue = "Document.pdf"
+        
+        savePanel.begin { result in
+            guard result == .OK, let url = savePanel.url else { return }
+            viewModel.exportPDF(to: url)
         }
     }
 }

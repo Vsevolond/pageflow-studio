@@ -221,6 +221,72 @@ final class EditorViewModel: ObservableObject {
     }
 }
 
+// MARK: - Extensions
+
+extension EditorViewModel {
+    
+    func generatePDF() -> Data? {
+        let pages = renderedPages
+        
+        guard !pages.isEmpty else { return nil }
+        
+        let pageWidth: CGFloat = 597
+        let pageHeight: CGFloat = 845
+        
+        let pdfData = NSMutableData()
+        
+        guard let consumer = CGDataConsumer(data: pdfData as CFMutableData) else {
+            return nil
+        }
+        
+        var mediaBox = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
+        
+        guard let context = CGContext(consumer: consumer, mediaBox: &mediaBox, nil) else {
+            return nil
+        }
+        
+        for pageView in pages {
+            context.beginPDFPage(nil)
+            
+            let sizedView = pageView.frame(width: pageWidth, height: pageHeight)
+            let hostingController = NSHostingController(rootView: sizedView)
+            
+            hostingController.view.setFrameSize(CGSize(width: pageWidth, height: pageHeight))
+            
+            hostingController.view.layoutSubtreeIfNeeded()
+            hostingController.view.display()
+            
+            guard let bitmapRep = hostingController.view.bitmapImageRepForCachingDisplay(in: hostingController.view.bounds) else {
+                context.endPDFPage()
+                continue
+            }
+            
+            hostingController.view.cacheDisplay(in: hostingController.view.bounds, to: bitmapRep)
+            
+            if let cgImage = bitmapRep.cgImage {
+                context.draw(cgImage, in: mediaBox)
+            }
+            
+            context.endPDFPage()
+        }
+        
+        context.closePDF()
+        
+        return pdfData as Data
+    }
+
+    func exportPDF(to url: URL) {
+        guard let pdfData = generatePDF() else { return }
+        
+        do {
+            try pdfData.write(to: url)
+            
+        } catch {
+            print("Failed to write PDF: \(error)")
+        }
+    }
+}
+
 // MARK: - Models
 
 struct ImageResource: Identifiable, Hashable {
