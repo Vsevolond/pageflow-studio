@@ -76,7 +76,7 @@ struct PageView<Header: View, Footer: View, Content: View>: View {
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity,
-            alignment: .leading
+            alignment: .topLeading
         )
     }
 }

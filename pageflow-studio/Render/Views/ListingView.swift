@@ -28,7 +28,6 @@ struct ListingView<Content: View>: View {
     @State private var highlighter: CodeHighlighter?
     @State private var textHeight: CGFloat = 0
     
-    // Минимальная высота для одной строки
     private let minHeight: CGFloat = 24
     
     // MARK: - Initializers

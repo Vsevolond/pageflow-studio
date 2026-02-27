@@ -52,9 +52,7 @@ extension Number: Measurable {
     }
     
     var points: CGFloat {
-        guard let unit else { return .zero }
-        
-        switch unit.value {
+        switch unit?.value {
         case .pt:
             return value.realValue
             
@@ -66,6 +64,9 @@ extension Number: Measurable {
             
         case .in:
             return value.realValue * 72
+            
+        default:
+            return value.realValue
         }
     }
 }
