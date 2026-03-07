@@ -62,6 +62,9 @@ struct PageView<Header: View, Footer: View, Content: View>: View {
             }
         }
         .frame(width: 597, height: 845)
+        .overlay {
+            Rectangle().stroke(.gray.opacity(0.5))
+        }
     }
     
     // MARK: - Nested Views
